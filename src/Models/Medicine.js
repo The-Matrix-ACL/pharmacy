@@ -23,11 +23,15 @@ const medicineSchema = new Schema(
       type: String,
       required: true,
     },
-    picure: {
+    picture: {
       type: Image,
       required: true,
     },
     amount: {
+      type: Number,
+      required: true,
+    },
+    sales: {
       type: Number,
       required: true,
     },
