@@ -1,4 +1,4 @@
-export function searchBar() {
+export default function SearchBar() {
   return (
     <>
       <form action="/search">
@@ -8,4 +8,5 @@ export function searchBar() {
       </form>
     </>
   );
+  ("");
 }
