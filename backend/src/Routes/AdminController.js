@@ -105,7 +105,7 @@ router.get("/viewPharmacist", async (req, res) => {
     res.status(500).json(error);
   }
 });
-router.get("./viewMedicine/:name", async (req, res) => {
+router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
   console.log(name);
   try {
@@ -121,7 +121,7 @@ router.get("./viewMedicine/:name", async (req, res) => {
     res.status(500).json(error);
   }
 });
-router.get("./viewMedicine/filter/:usage", async (req, res) => {
+router.get("/viewMedicine/filter/:usage", async (req, res) => {
   const { usage } = req.params;
   console.log(usage);
   try {
