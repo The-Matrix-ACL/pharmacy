@@ -42,7 +42,7 @@ router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
   console.log(name);
   try {
-    const med = await Medicine.find({ name: name });
+    const med = await medicineModel.find({ name: name });
     if (med.length === 0 || !med) {
       return res
         .status(404)
@@ -58,7 +58,7 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
   const { usage } = req.params;
   console.log(usage);
   try {
-    const med = await Medicine.find({ usage: usage });
+    const med = await medicineModel.find({ usage: usage });
     if (med.length === 0 || !med) {
       return res
         .status(404)
