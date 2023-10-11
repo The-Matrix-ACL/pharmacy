@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+/*
+      name,
+      price,
+      ingredients,
+      usage,
+      description,
+      picture,
+      amount,
+      sales,
+*/
 const medicineSchema = new Schema(
   {
     name: {
@@ -8,7 +17,7 @@ const medicineSchema = new Schema(
       required: true,
     },
     price: {
-      type: Double,
+      type: String,
       required: true,
     },
     ingredients: {
@@ -16,7 +25,7 @@ const medicineSchema = new Schema(
       required: true,
     },
     usage: {
-      trype: Array,
+      type: String,
       required: true,
     },
     description: {
@@ -24,7 +33,7 @@ const medicineSchema = new Schema(
       required: true,
     },
     picture: {
-      type: Image,
+      type: String,
       required: true,
     },
     amount: {
@@ -38,7 +47,5 @@ const medicineSchema = new Schema(
   },
   { timestamps: true }
 );
-
 const Medicine = mongoose.model("Medicine", medicineSchema);
-
 module.exports = Medicine;
