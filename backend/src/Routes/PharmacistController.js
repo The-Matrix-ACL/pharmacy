@@ -106,6 +106,38 @@ router.patch("/editMed/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+router.get("/viewMedicine/:name", async (req, res) => {
+  const { name } = req.params;
+  console.log(medName);
+  try {
+    const med = await Medicine.find({ name: name });
+    if (med.length === 0 || !med) {
+      return res
+        .status(404)
+        .json({ message: "No medicine with this name on record" });
+    }
+    res.json(med);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+});
+router.get("/viewMedicine/:usage", async (req, res) => {
+  const { usage } = req.params;
+  console.log(medUse);
+  try {
+    const med = await Medicine.find({ usage: usage });
+    if (med.length === 0 || !med) {
+      return res
+        .status(404)
+        .json({ message: "No medicine with this use on record" });
+    }
+    res.json(med);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+});
 
 module.exports = router;
 // module.exports = { addMed };

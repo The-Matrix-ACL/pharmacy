@@ -1,3 +1,4 @@
+const { Router } = require("express");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 /*
@@ -47,5 +48,6 @@ const medicineSchema = new Schema(
   },
   { timestamps: true }
 );
+
 const Medicine = mongoose.model("Medicine", medicineSchema);
 module.exports = Medicine;
