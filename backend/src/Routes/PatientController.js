@@ -1,10 +1,10 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
+const express = require("express");
+const bcrypt = require("bcrypt");
 const router = express.Router();
-const Patient = require('C:\Users\ahmed\Desktop\ACLProject\src\Models\Patient.js');
+const Patient = require("../Models/Patient.js");
 
 // Registration endpoint
-router.post('/register', async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const {
       username,
@@ -32,10 +32,10 @@ router.post('/register', async (req, res) => {
     });
 
     await newPatient.save();
-    res.status(201).json({ message: 'Patient registered successfully' });
+    res.status(201).json({ message: "Patient registered successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
