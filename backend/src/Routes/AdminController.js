@@ -129,7 +129,7 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
     if (med.length === 0 || !med) {
       return res
         .status(404)
-        .json({ message: "No medicine with this usage on record" });
+        .json({ message: "No medicine with this use on record" });
     }
     res.json(med);
   } catch (error) {

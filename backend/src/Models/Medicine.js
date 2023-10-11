@@ -21,14 +21,17 @@ const medicineSchema = new Schema(
       type: String,
       required: true,
     },
+    //Active and their dosage
     ingredients: {
       type: String,
       required: true,
     },
+    //Class of Pharmaceuticals
     usage: {
       type: String,
       required: true,
     },
+    //Why using and how
     description: {
       type: String,
       required: true,
