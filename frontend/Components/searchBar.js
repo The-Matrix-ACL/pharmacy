@@ -8,4 +8,5 @@ export default function SearchBar() {
       </form>
     </>
   );
+  function searchFor() {}
 }

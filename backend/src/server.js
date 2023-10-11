@@ -21,6 +21,9 @@ const patient = require("./Routes/PatientController");
 app.use("/pharma/pharmacist", pharmacist);
 app.use("/pharma/admin", admin);
 app.use("/pharma/patient", patient);
+app.get("/", async (req, res) => {
+  res.status(400).json("hello world");
+});
 // app.use("/user", user);
 
 // MongoDB setup
