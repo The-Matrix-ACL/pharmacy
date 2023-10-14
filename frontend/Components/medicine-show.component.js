@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
+import medicineModel from "../../backend/src/Models";
+import all from "../../backend/src/Routes";
+
 
 export default class MedicineShow extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
+      names: "",
+      medicine: medicineModel.name,
     };
   }
   onChangeSearch(e) {
@@ -18,10 +22,11 @@ export default class MedicineShow extends Component {
   searchFor(e) {
     e.preventDefault();
     const search = this.name.state;
+    const meds = this.medicine.state;
 
     axios
       .post(`http://localhost:8000/viewMedicine/:${search}`)
-      .then((res) => console.log(res.data));
+      .then((res) => medicineModel.find(search, meds));
   }
 
   render() {
