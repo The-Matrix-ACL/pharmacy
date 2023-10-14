@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-i;
+import medicineModel from "../../backend/src/Models";
+import all from "../../backend/src/Routes";
 
 export default class Filter extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class Filter extends Component {
     this.filter = this.filter.bind(this);
 
     this.state = {
-      medUse: "",
+      medUse: [],
       medicine: medicineModel.usage,
     };
   }
@@ -20,7 +21,7 @@ export default class Filter extends Component {
     const meds = this.medicine.state;
 
     axios
-      .post("http://localhost:3000/viewMedicine/:filter", filter)
+      .post(`http://localhost:8000/viewMedicine/:${filter}`)
       .then((res) => medicineModel.find(filter, meds));
   }
   render() {

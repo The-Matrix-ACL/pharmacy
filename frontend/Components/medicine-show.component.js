@@ -20,7 +20,7 @@ export default class MedicineShow extends Component {
     const search = this.name.state;
 
     axios
-      .post("http://localhost:3000/viewMedicine/:name", search)
+      .post(`http://localhost:8000/viewMedicine/:${search}`)
       .then((res) => console.log(res.data));
   }
 

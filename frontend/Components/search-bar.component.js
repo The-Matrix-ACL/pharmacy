@@ -9,7 +9,7 @@ export default class SearchBar extends Component {
     this.searchFor = this.searchFor.bind(this);
 
     this.state = {
-      name: "",
+      name: [],
     };
   }
   onChangeSearch(e) {
@@ -20,11 +20,13 @@ export default class SearchBar extends Component {
 
   searchFor(e) {
     e.preventDefault();
-    const search = this.name.state;
+    const name = this.name.state;
 
     axios
-      .post("http://localhost:3000/viewMedicine/:name", search)
-      .then((res) => console.log(res.data));
+      .post(`http://localhost:8000/viewMedicine/:${name}`)
+      .then((response) => {
+        this.state({ name: response.date });
+      });
   }
 
   render() {
