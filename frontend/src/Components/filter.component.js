@@ -20,7 +20,9 @@ export default class Filter extends Component {
 
     axios
       .get("http://localhost:8000/viewMedicine/" + filter)
-      .then((res) => meds);
+      .then((response) => {
+        this.state({ meds: response.data });
+      });
   }
 
   render() {
