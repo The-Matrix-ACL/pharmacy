@@ -138,6 +138,18 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
     res.status(500).json(error);
   }
 });
+router.get("/ViewMedQuantityAndSales", async (req, res) => {
+  const Medications = await medicineModel.find(
+    {},
+    { _id: 0, amount: 1, sales: 1 }
+  );
+
+  try {
+    res.status(200).json(Medications);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;
 // module.exports = { addMed };
