@@ -7,6 +7,7 @@ const {createPatient, filterPatients} = require('./Routes/PatientController');
 const { createPharmacistRequest } = require('./Routes/pharmacistController');
 const { addAdmin,deletePatient,deletePharmacist,viewPharmacistRequests} = require('./Routes/AdminController'); // Import the new admin controller functions
 
+const path = require('path');
 
 
 const app = express();
@@ -40,8 +41,9 @@ app.delete("/deletePatient/:id", deletePatient);
 app.get("/viewPharmacistRequests", viewPharmacistRequests);
 
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
+// Define a route for the root path ("/") to serve your HTML file
 app.get("/", (req, res) => {
-  res.send("Welcome to the root page.");
+  res.sendFile(path.join(__dirname, 'public', 'front.html'));
 });
