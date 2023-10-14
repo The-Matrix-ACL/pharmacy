@@ -16,12 +16,11 @@ export default class Filter extends Component {
   onSubmit(e) {
     e.preventDefault();
     const filter = this.medUse.state;
-    const meds = this.medicine.state;
 
     axios
       .get("http://localhost:8000/viewMedicine/" + filter)
       .then((response) => {
-        this.state({ meds: response.data });
+        this.state({ medicine: response.data });
       });
   }
 
