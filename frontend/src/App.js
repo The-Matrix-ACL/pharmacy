@@ -13,7 +13,10 @@ function App() {
     <Router>
       <div className="container">
         <Navbar />
+
+        <br />
         <SearchBar />
+
         <Filter />
         <br />
         <Routes>

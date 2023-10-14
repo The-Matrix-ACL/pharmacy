@@ -24,7 +24,7 @@ export default class ViewMeds extends Component {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3000/AvailableMedicine/")
+      .post("http://localhost:8000/AvailableMedicine/")
       .then((res) => (this.show = medicineModel.find()));
   }
   render() {

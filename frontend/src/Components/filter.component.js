@@ -19,7 +19,7 @@ export default class Filter extends Component {
     const meds = this.medicine.state;
 
     axios
-      .get(`http://localhost:3000/viewMedicine/` + filter)
+      .get("http://localhost:8000/viewMedicine/" + filter)
       .then((res) => meds);
   }
 
@@ -28,8 +28,13 @@ export default class Filter extends Component {
       <form className="form-control">
         <label> Filter </label>
         <select>
-          {this.medicine.state.map((med) => {
-            return <option value={med.name}> {med.usage}</option>;
+          {this.medicine.state.map((meds) => {
+            return (
+              <option value={meds.name}>
+                {" "}
+                {meds.map((medicines) => medicines.usage)}
+              </option>
+            );
           })}
         </select>
       </form>

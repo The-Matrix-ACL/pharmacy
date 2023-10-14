@@ -28,7 +28,7 @@ app.get("/");
 
 // MongoDB setup
 const MongoURI = process.env.MONGO_URI;
-const port = process.env.PORT || "3000";
+const port = process.env.PORT || "8000";
 
 mongoose.connect(MongoURI).then(() => {
   console.log("MongoDB is now connected!");

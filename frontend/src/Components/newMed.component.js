@@ -92,7 +92,7 @@ export default class AddMed extends Component {
     console.log(medicine);
 
     axios
-      .post("http://localhost:3000/pharma/pharmacist/addMed", medicine)
+      .post("http://localhost:8000/pharma/pharmacist/addMed", medicine)
       .then((res) => console.log(res.data));
   }
 

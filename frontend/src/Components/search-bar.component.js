@@ -22,7 +22,7 @@ export default class SearchBar extends Component {
     e.preventDefault();
     const name = this.name.state;
 
-    axios.get(`http://localhost:3000/viewMedicine/` + name).then((response) => {
+    axios.get("http://localhost:8000/viewMedicine/" + name).then((response) => {
       this.state({ name: response.date });
     });
   }
