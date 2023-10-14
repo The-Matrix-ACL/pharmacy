@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+
+    <h2>Add a New Admin</h2>
+    <form id="adminRegistrationForm" action="/addAdmin" method="POST">
+        <label for="adminUsername">Username:</label>
+        <input type="text" id="adminUsername" name="username" required><br><br>
+
+        <label for="adminPassword">Password:</label>
+        <input type="password" id="adminPassword" name="password" required><br><br>
+
+        <button type="submit">Add Admin</button>
+    </form>
+
+    <h2>Delete a User</h2>
+    <form id="deleteUserForm">
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="id" required><br><br>
+
+        <label for="userType">User Type:</label>
+        <select id="userType" name="type" required>
+            <option value="patient">Patient</option>
+            <option value="pharmacist">Pharmacist</option>
+        </select><br><br>
+
+        <button type="submit">Delete User</button>
+    </form>
+
+    <h2>View Pharmacist Registration Requests</h2>
+    <button id="viewPharmacistRequestsButton">View Requests</button>
+    <div id="pharmacistRequestsList"></div>
+
+    <script>
+        document.getElementById("adminRegistrationForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const adminData = {};
+            formData.forEach((value, key) => {
+                adminData[key] = value;
+            });
+
+            fetch("/addAdmin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(adminData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Admin added successfully");
+            })
+            .catch(error => {
+                console.error("Error adding admin:", error);
+                alert("An error occurred during admin addition");
+            });
+        });
+        
+
+        document.getElementById("deleteUserForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const userId = formData.get("id");
+            const userType = formData.get("type");
+
+      // For deleting a pharmacist
+            fetch(`/deletePharmacist/${userId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.status === 204) {
+                    alert("Pharmacist deleted successfully");
+                } else if (response.status === 404) {
+                    alert("Pharmacist not found");
+                } else {
+                    alert("An error occurred while deleting the pharmacist");
+                }
+            })
+            .catch(error => {
+                console.error("Error deleting pharmacist:", error);
+                alert("An error occurred while deleting the pharmacist");
+            });
+
+            // For deleting a patient
+            fetch(`/deletePatient/${userId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.status === 204) {
+                    alert("Patient deleted successfully");
+                } else if (response.status === 404) {
+                    alert("Patient not found");
+                } else {
+                    alert("An error occurred while deleting the patient");
+                }
+            })
+            .catch(error => {
+    console.error("Error deleting patient:", error);
+    alert("An error occurred while deleting the patient");
+});
+
+
+        });
+        
+
+        document.getElementById("viewPharmacistRequestsButton").addEventListener("click", function () {
+            fetch("/viewPharmacistRequests")
+            .then(response => response.json())
+            .then(data => {
+                const pharmacistRequestsList = document.getElementById("pharmacistRequestsList");
+                pharmacistRequestsList.innerHTML = "";
+
+                data.forEach(request => {
+                    const requestItem = document.createElement("div");
+                    requestItem.textContent = `Username: ${request.username}, Name: ${request.name}, Email: ${request.email}`;
+                    pharmacistRequestsList.appendChild(requestItem);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching pharmacist requests:", error);
+                alert("An error occurred while fetching pharmacist requests");
+            });
+        });
+    </script>
+</body>
+</html>
