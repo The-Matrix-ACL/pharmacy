@@ -105,9 +105,6 @@ router.patch("/editMed/:id", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-
-   
-
 });
 router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
@@ -154,33 +151,28 @@ router.get("/ViewMedQuantityAndSales", async (req, res) => {
   }
 });
 
-router.get ("/AvailableMedicine" , async (req, res) => {
+router.get("/AvailableMedicine", async (req, res) => {
   const Medications = await medicineModel.find();
-  
-  try{
-  res.status(200).json(Medications);
- }
- catch(error) {
+
+  try {
+    res.status(200).json(Medications);
+  } catch (error) {
     res.status(400).json({ error: error.message });
   }
+});
 
- });
-
-
-  router.get("/ViewMedQuantityAndSales", async (req, res) => {
-     const Medications = await medicineModel.find({}, { _id: 0, amount: 1, sales: 1 })
-
-     try{
-      res.status(200).json(Medications);
-     }
-     catch(error) {
-        res.status(400).json({ error: error.message });
-      }
-
-   }
+router.get("/ViewMedQuantityAndSales", async (req, res) => {
+  const Medications = await medicineModel.find(
+    {},
+    { _id: 0, amount: 1, sales: 1 }
   );
 
-  
+  try {
+    res.status(200).json(Medications);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;
 // module.exports = { addMed };

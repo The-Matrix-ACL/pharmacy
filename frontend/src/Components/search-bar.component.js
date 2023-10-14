@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-
 export default class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +22,9 @@ export default class SearchBar extends Component {
     e.preventDefault();
     const name = this.name.state;
 
-    axios
-      .post(`http://localhost:8000/viewMedicine/:${name}`)
-      .then((response) => {
-        this.state({ name: response.date });
-      });
+    axios.get(`http://localhost:3000/viewMedicine/` + name).then((response) => {
+      this.state({ name: response.date });
+    });
   }
 
   render() {

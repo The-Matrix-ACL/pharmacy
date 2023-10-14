@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import medicineModel from "../../backend/src/Models";
-import all from "../../backend/src/Routes";
-
 
 export default class MedicineShow extends Component {
   constructor(props) {
@@ -25,7 +23,7 @@ export default class MedicineShow extends Component {
     const meds = this.medicine.state;
 
     axios
-      .post(`http://localhost:8000/viewMedicine/:${search}`)
+      .post(`http://localhost:3000/viewMedicine/:${search}`)
       .then((res) => medicineModel.find(search, meds));
   }
 

@@ -1,6 +1,6 @@
 // Setting up
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -28,7 +28,7 @@ app.get("/");
 
 // MongoDB setup
 const MongoURI = process.env.MONGO_URI;
-const port = process.env.PORT || "8000";
+const port = process.env.PORT || "3000";
 
 mongoose.connect(MongoURI).then(() => {
   console.log("MongoDB is now connected!");
