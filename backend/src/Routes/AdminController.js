@@ -138,4 +138,18 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
   }
 });
 
+router.get("/PatientInfo/:username", async (req, res) => {
+  try {
+    const patientUsername = req.params.username;
+    const patientInfo = await Patient.findOne({username: patientUsername});
+
+    res.status(200).json(patientInfo);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+}
+
+)
+
 module.exports = router;
