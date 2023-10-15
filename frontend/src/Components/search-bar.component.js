@@ -20,10 +20,11 @@ export default class SearchBar extends Component {
 
   searchFor(e) {
     e.preventDefault();
-    const name = this.name.state;
+    const name = this.state.name;
 
-    axios.get("http://localhost:8000/viewMedicine/" + name).then((response) => {
+    axios.get(`http://localhost:8000/viewMedicine/${name}`).then((response) => {
       this.state({ name: response.data });
+      console.log(response);
     });
   }
 

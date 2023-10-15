@@ -5,16 +5,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./Components/navBar.component";
 import AddMed from "./Components/newMed.component";
-import SearchBar from "./Components/search-bar.component";
 import Filter from "./Components/filter.component";
+import SearchBar from "./Components/search-bar.component";
+//import Filter from "./Components/filter.component";
 
 function App() {
   return (
     <Router>
       <div className="container">
         <Navbar />
-
-        <br />
         <SearchBar />
 
         <Filter />
