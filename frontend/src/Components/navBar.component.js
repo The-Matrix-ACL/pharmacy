@@ -11,7 +11,7 @@ export default class Navbar extends Component {
         <ul className="navbar-nav mr-auto">
     
           <li className="navbar-item">
-          <Link to="/pharma/pharmacist/AvailableMedicine" className="nav-link">Available medicine</Link>
+          <Link to="/pharma/pharmacist/AvailableMedicine" className="nav-link">Available Medicine</Link>
           </li>
           <li className="navbar-item">
           <Link to="/pharma/pharmacist/addMed" className="nav-link">Add new medicine</Link>

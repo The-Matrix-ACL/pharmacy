@@ -74,7 +74,7 @@ router.post("/addMed", async (req, res) => {
 });
 
 //edit medicine details and price
-router.patch("/editMed/:id", async (req, res) => {
+router.post("/AvailableMedicine/editMed/:id", async (req, res) => {
   const id = req.params.id;
   const {
     name,
@@ -179,6 +179,18 @@ router.get ("/AvailableMedicine" , async (req, res) => {
 
    }
   );
+
+  router.get("/viewMedicineById/:id", async (req, res) => {
+    const id  = req.params.id;
+   
+    try {
+      const med = await medicineModel.findById(id);
+      res.json(med);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
+  });
 
   
 

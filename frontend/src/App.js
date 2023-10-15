@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "../../../css/bootstrap.min.css";
-=======
+
 import { BrowserRouter as  Router, Route , Routes} from "react-router-dom";
 import React from "react" ;
 import "bootstrap/dist/css/bootstrap.min.css" ;
@@ -9,8 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css" ;
 
 import Navbar from "./Components/navBar.component";
 import AddMed from "./Components/newMed.component";
+import EditMed from "./Components/editMed.component";
+import AvailableMeds from "./Components/viewMedicine.component";
 
->>>>>>> 6b794dce797396ae916bbf098302a7cd0e83a031
 
 function App() {
   return (
@@ -20,7 +18,14 @@ function App() {
       <br/>
       <Routes>
       <Route path="/pharma/pharmacist/addMed" element ={<AddMed/>} />
+    
+      <Route path="/pharma/pharmacist/AvailableMedicine" element ={<AvailableMeds/>} />
+
+      <Route path="/pharma/pharmacist/AvailableMedicine/editMed/:id" element ={<EditMed/>} />
+      <Route path="/pharma/pharmacist/AvailableMedicine/editMed" element ={<EditMed/>} />
       </Routes>
+
+
       </div>
     </Router>
   );
