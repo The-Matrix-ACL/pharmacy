@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-export default class AddMed extends Component {
+
+
+ class EditMed extends Component {
     constructor(props) {
       super(props);
+
+      this.state = {
+        name: '',
+        price: '',
+        ingredients: '',
+        usage: '',
+        description: '',
+        picture: '',
+        amount: 0,
+        sales: 0
+      }
 
 
     this.onChangeName = this.onChangeName.bind(this);
@@ -16,20 +30,33 @@ export default class AddMed extends Component {
     this.onChangeSales = this.onChangeSales.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   
-      this.state = {
-        name: '',
-        price: '',
-        ingredients: '',
-        usage: '',
-        description: '',
-        picture: '',
-        amount: 0,
-        sales: 0,
-        //users: []
-      }
+     
 
 
     }
+
+    componentDidMount() {
+        const{id} = this.props.params;
+        axios.get('http://localhost:8000/pharma/pharmacist/viewMedicineById/'+ id)
+          .then(response => {
+            this.setState({
+              name : response.data.name,
+              price: response.data.price,
+              ingredients: response.data.ingredients,
+              usage : response.data.usage,
+              description: response.data.description,
+              picture: response.data.picture,
+              amount: response.data.amount,
+              sales: response.data.sales
+            })   
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+    
+        
+    
+      }
 
     onChangeName(e) {
       this.setState({
@@ -93,15 +120,17 @@ export default class AddMed extends Component {
       }
   
       console.log(medicine);
+
+      const{id} = this.props.params;
   
-      axios.post('http://localhost:8000/pharma/pharmacist/addMed', medicine)
+      axios.post('http://localhost:8000/pharma/pharmacist/AvailableMedicine/editMed/'+ id, medicine)
         .then(res => console.log(res.data));
     }
 
     render() {
       return (
       <div>
-        <h3>Add new medication</h3>
+        <h3>Edit Medication</h3>
         <form onSubmit={this.onSubmit}>
 
           <div className="form-group"> 
@@ -185,10 +214,18 @@ export default class AddMed extends Component {
           </div>
   
           <div className="form-group">
-            <input type="submit" value="Add medication" className="btn btn-primary" />
+            <input type="submit" value="Edit medication" className="btn btn-primary" />
           </div>
         </form>
       </div>
       )
     }
+
 }
+
+    export default (props) => (
+        <EditMed
+            {...props}
+            params={useParams()}
+        />
+    );

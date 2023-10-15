@@ -9,6 +9,7 @@ export default class Navbar extends Component {
           Pharmacy
         </Link>
         <div className="collpase navbar-collapse">
+<<<<<<< HEAD
           <ul className="navbar-nav mr-auto">
             <li className="navbar-item">
               <Link
@@ -24,6 +25,19 @@ export default class Navbar extends Component {
               </Link>
             </li>
           </ul>
+=======
+        <ul className="navbar-nav mr-auto">
+    
+          <li className="navbar-item">
+          <Link to="/pharma/pharmacist/AvailableMedicine" className="nav-link">Available Medicine</Link>
+          </li>
+          <li className="navbar-item">
+          <Link to="/pharma/pharmacist/addMed" className="nav-link">Add new medicine</Link>
+          </li>
+    
+          
+        </ul>
+>>>>>>> 1dcd1821573b0c683c64c4b7dd01e515198ecd1e
         </div>
       </nav>
     );
