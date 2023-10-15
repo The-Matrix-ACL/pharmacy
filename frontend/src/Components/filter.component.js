@@ -6,6 +6,7 @@ export default class Filter extends Component {
     super(props);
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.show = this.show.bind(this);
 
     this.state = {
       medUse: "",
@@ -24,6 +25,7 @@ export default class Filter extends Component {
       .get(`http://localhost:8000/viewMedicine/${filtering}`)
       .then((response) => {
         this.state({ medicine: response.data });
+        this.show = medicineModel.find();
         console.log(response);
       });
   }

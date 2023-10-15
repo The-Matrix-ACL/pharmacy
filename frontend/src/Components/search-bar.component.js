@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import medicineModel from "../../backend/src/Models";
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ export default class SearchBar extends Component {
 
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.searchFor = this.searchFor.bind(this);
+    this.show = this.show.bind(this);
 
     this.state = {
       name: [],
@@ -24,6 +26,7 @@ export default class SearchBar extends Component {
 
     axios.get(`http://localhost:8000/viewMedicine/${name}`).then((response) => {
       this.state({ name: response.data });
+      this.show = medicineModel.find();
       console.log(response);
     });
   }
