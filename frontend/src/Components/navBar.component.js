@@ -15,7 +15,7 @@ export default class Navbar extends Component {
                 to="/pharma/pharmacist/AvailableMedicine"
                 className="nav-link"
               >
-                Available medicine
+                Available Medicine
               </Link>
             </li>
             <li className="navbar-item">

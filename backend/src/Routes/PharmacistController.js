@@ -74,7 +74,7 @@ router.post("/addMed", async (req, res) => {
 });
 
 //edit medicine details and price
-router.patch("/editMed/:id", async (req, res) => {
+router.post("/AvailableMedicine/editMed/:id", async (req, res) => {
   const id = req.params.id;
   const {
     name,
@@ -167,12 +167,28 @@ router.get("/ViewMedQuantityAndSales", async (req, res) => {
     { _id: 0, amount: 1, sales: 1 }
   );
 
+<<<<<<< HEAD
   try {
     res.status(200).json(Medications);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
+=======
+  router.get("/viewMedicineById/:id", async (req, res) => {
+    const id  = req.params.id;
+   
+    try {
+      const med = await medicineModel.findById(id);
+      res.json(med);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error);
+    }
+  });
+
+  
+>>>>>>> 1dcd1821573b0c683c64c4b7dd01e515198ecd1e
 
 module.exports = router;
 // module.exports = { addMed };
