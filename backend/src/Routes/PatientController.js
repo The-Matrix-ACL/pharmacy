@@ -48,7 +48,7 @@ router.get("/viewMedicine/:name", async (req, res) => {
         .status(404)
         .json({ message: "No medicine with this name on record" });
     }
-    res.json(med);
+    res.status(200).json(med);
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
@@ -64,7 +64,7 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
         .status(404)
         .json({ message: "No medicine with this use on record" });
     }
-    res.json(med);
+    res.status(200).json(med);
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
