@@ -4,6 +4,10 @@ const router = express.Router();
 //models
 const Pharmacist = require("../Models/Pharmacist");
 const medicineModel = require("../Models/Medicine");
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+let path = require('path');
+let User = require('../models/User.js');
 
 // Registration endpoint for pharmacists
 router.post("/register", async (req, res) => {
@@ -192,7 +196,49 @@ router.get ("/AvailableMedicine" , async (req, res) => {
     }
   });
 
+  //Upload medicine image
+
+  const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'images');
+    },
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+
+let upload = multer({ storage, fileFilter });
+
+router.route('/addPhoto/:id').post(upload.single('photo'), async (req, res) => {
+  
+  const id  = req.params.id;
+
+  try{
+  const med = await medicineModel.findOneAndUpdate(
+    { _id: id },
+    {
+      picture: photo
+    }
+  );
+  res.status(200).json(med);
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
+
+
+});
+
+
   
 
 module.exports = router;
-// module.exports = { addMed };
+

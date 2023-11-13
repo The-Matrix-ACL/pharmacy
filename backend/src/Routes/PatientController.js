@@ -2,6 +2,7 @@ const express = require("express");
 ///const bcrypt = require("bcrypt");
 const router = express.Router();
 const Patient = require("../Models/Patient.js");
+const AddressModel = require("../Models/DeliveryAddress.js")
 
 // Registration endpoint
 router.post("/register", async (req, res) => {
@@ -70,5 +71,46 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+router.get ("/AvailableMedicine" , async (req, res) => {
+  const Medications = await medicineModel.find();
+  
+  try{
+  res.status(200).json(Medications);
+ }
+ catch(error) {
+    res.status(400).json({ error: error.message });
+  }
+
+ });
+
+router.post("/AddAddress/:userid", async(req,res)=>{
+  const Id = req.params.userid;
+
+   const {
+    userId,
+    addressTitle,
+    governate,
+    city,
+    street,
+    buildingNumber,
+    apartmentNumber
+  } = req.body;
+
+  try {
+    const newAddress = await AddressModel.create({
+      userId,
+      addressTitle,
+      governate,
+      city,
+      street,
+      buildingNumber,
+      apartmentNumber
+    });
+    res.status(200).json(newAddress);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+})
 
 module.exports = router;
