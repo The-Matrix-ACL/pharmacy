@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist Registration</title>
+</head>
+<body>
+    <h1>Pharmacist Registration</h1>
+    <form id="pharmacistRegistrationForm" action="/submitPharmacistRequest" method="POST">
+        <label for="pharmacistUsername">Username:</label>
+        <input type="text" id="pharmacistUsername" name="username" required><br><br>
+
+        <label for="pharmacistName">Name:</label>
+        <input type="text" id="pharmacistName" name="name" required><br><br>
+
+        <label for="pharmacistEmail">Email:</label>
+        <input type="email" id="pharmacistEmail" name="email" required><br><br>
+
+        <label for="pharmacistPassword">Password:</label>
+        <input type="password" id="pharmacistPassword" name="password" required><br><br>
+
+        <label for="pharmacistDateOfBirth">Date of Birth:</label>
+        <input type="date" id="pharmacistDateOfBirth" name="dateOfBirth" required><br><br>
+
+        <label for="pharmacistHourlyRate">Hourly Rate:</label>
+        <input type="number" id="pharmacistHourlyRate" name="hourlyRate" required><br><br>
+
+        <label for="pharmacistAffiliation">Affiliation:</label>
+        <input type="text" id="pharmacistAffiliation" name="affiliation" required><br><br>
+
+        <label for="pharmacistEducationalBackground">Educational Background:</label>
+        <input type="text" id="pharmacistEducationalBackground" name="educationalBackground" required><br><br>
+
+        <button type="submit">Register as Pharmacist</button>
+    </form>
+
+    <script>
+        document.getElementById("pharmacistRegistrationForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const pharmacistData = {};
+            formData.forEach((value, key) => {
+                pharmacistData[key] = value;
+            });
+
+            fetch("/submitPharmacistRequest", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(pharmacistData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Pharmacist registration request submitted successfully");
+            })
+            .catch(error => {
+                console.error("Error submitting pharmacist request:", error);
+                alert("An error occurred during pharmacist registration");
+            });
+        });
+    </script>
+</body>
+</html>

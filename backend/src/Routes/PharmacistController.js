@@ -109,9 +109,6 @@ router.post("/AvailableMedicine/editMed/:id", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-
-   
-
 });
 router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
@@ -158,32 +155,30 @@ router.get("/ViewMedQuantityAndSales", async (req, res) => {
   }
 });
 
-router.get ("/AvailableMedicine" , async (req, res) => {
+router.get("/AvailableMedicine", async (req, res) => {
   const Medications = await medicineModel.find();
-  
-  try{
-  res.status(200).json(Medications);
- }
- catch(error) {
+
+  try {
+    res.status(200).json(Medications);
+  } catch (error) {
     res.status(400).json({ error: error.message });
   }
+});
 
- });
-
-
-  router.get("/ViewMedQuantityAndSales", async (req, res) => {
-     const Medications = await medicineModel.find({}, { _id: 0, amount: 1, sales: 1 })
-
-     try{
-      res.status(200).json(Medications);
-     }
-     catch(error) {
-        res.status(400).json({ error: error.message });
-      }
-
-   }
+router.get("/ViewMedQuantityAndSales", async (req, res) => {
+  const Medications = await medicineModel.find(
+    {},
+    { _id: 0, amount: 1, sales: 1 }
   );
 
+<<<<<<< HEAD
+  try {
+    res.status(200).json(Medications);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+=======
   router.get("/viewMedicineById/:id", async (req, res) => {
     const id  = req.params.id;
    
@@ -239,6 +234,7 @@ router.route('/addPhoto/:id').post(upload.single('photo'), async (req, res) => {
 
 
   
+>>>>>>> 1dcd1821573b0c683c64c4b7dd01e515198ecd1e
 
 module.exports = router;
 

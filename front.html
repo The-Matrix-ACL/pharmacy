@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options</title>
+</head>
+<body>
+    <h1>Welcome to El7a2ni Portal</h1>
+    <p>Choose your  type:</p>
+    
+    <div>
+        <button id="patientRegistrationButton">Register as Patient</button>
+        <button id="pharmacistRegistrationButton">Register as Pharmacist</button>
+        <button id="AdminButton">View Admin</button>
+    </div>
+
+    <script>
+        document.getElementById("patientRegistrationButton").addEventListener("click", function () {
+            // Redirect to the patient registration page
+            window.location.href = "patient-registration.html";
+        });
+
+        document.getElementById("pharmacistRegistrationButton").addEventListener("click", function () {
+            // Redirect to the pharmacist registration page
+            window.location.href = "pharmacist-registration.html";
+        });
+
+        document.getElementById("AdminButton").addEventListener("click", function () {
+            // Redirect to the pharmacist registration page
+            window.location.href = "Admin.html";
+        });
+    </script>
+</body>
+</html>
