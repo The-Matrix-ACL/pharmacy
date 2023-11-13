@@ -57,17 +57,48 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    return (
-      <>
-        <form onSubmit={this.searchFor}>
-          <input
-            className="form-control"
-            placeholder="Search..."
-            onChange={this.onChangeSearch}
-          />
-          <input type="submit" value="Search" className="btn btn-primary" />
-        </form>
-      </>
-    );
+    if (this.state.searched) {
+      return (
+        <>
+          <form onSubmit={this.searchFor}>
+            <input
+              className="form-control"
+              placeholder="Search..."
+              onChange={this.onChangeSearch}
+            />
+            <input type="submit" value="Search" className="btn btn-primary" />
+          </form>
+          <table className="table">
+            <thead className="thead-light">
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Ingredients</th>
+                <th>Usage</th>
+                <th>description</th>
+                <th>Picture</th>
+                <th>Amount</th>
+                <th>Sales</th>
+              </tr>
+            </thead>
+            <tbody>{this.medicineList()}</tbody>
+          </table>
+        </>
+      );
+    }
+    if (!this.state.searched) {
+      return (
+        <>
+          <form onSubmit={this.searchFor}>
+            <input
+              className="form-control"
+              placeholder="Search..."
+              onChange={this.onChangeSearch}
+            />
+            <input type="submit" value="Search" className="btn btn-primary" />
+          </form>
+        </>
+      );
+    }
   }
 }

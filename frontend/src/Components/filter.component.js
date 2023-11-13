@@ -23,10 +23,11 @@ export default class Filter extends Component {
     super(props);
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.filter = this.filter.bind(this);
     //this.show = this.show.bind(this);
 
     this.state = {
-      medUse: [],
+      medUse: "",
       medicine: [],
       uses: [],
       filtered: false,
@@ -59,26 +60,79 @@ export default class Filter extends Component {
 
     axios
       .get(
-        "http://localhost:8000/pharma/pharmacist/viewMedicine/filter" + usage
+        "http://localhost:8000/pharma/pharmacist/viewMedicine/filter/" + usage
       )
-      .then((res) => this.setState({ medicine: res.data }));
+      .then((response) => this.setState({ medicine: response.data }));
     this.setState({ filtered: true });
   }
 
   render() {
-    return (
-      <>
-        <form className="form-control" onSubmit={this.filter}>
-          <label> Filter </label>
-          <select onChange={this.onChangeFilter}>
-            {this.usageList().map((usages) => (
-              <option key={usages.usage} value={usages.usage}>
-                {usages.usage}
-              </option>
-            ))}
-          </select>
-        </form>
-      </>
-    );
+    if (!this.state.filtered) {
+      return (
+        <>
+          <div
+            style={{
+              display: "flex",
+              justifycontent: "space-between",
+            }}
+          >
+            <form className="form-control" onSubmit={this.filter}>
+              <label> Filter </label>
+              <select onChange={this.onChangeFilter} style={{ width: "150px" }}>
+                {this.usageList().map((usages) => (
+                  <option key={usages.usage} value={usages.usage}>
+                    {usages.usage}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="submit"
+                value="Filter"
+                className="btn btn-primary"
+                style={{ float: "right" }}
+              />
+            </form>
+          </div>
+        </>
+      );
+    }
+    if (this.state.filtered) {
+      return (
+        <>
+          <form className="form-control" onSubmit={this.filter}>
+            <label> Filter </label>
+            <select onChange={this.onChangeFilter} style={{ width: "150px" }}>
+              {this.usageList().map((usages) => (
+                <option key={usages.usage} value={usages.usage}>
+                  {usages.usage}
+                </option>
+              ))}
+            </select>
+            <input
+              type="submit"
+              value="Filter"
+              className="btn btn-primary"
+              style={{ float: "right" }}
+            />
+          </form>
+
+          <table className="table">
+            <thead className="thead-light">
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Ingredients</th>
+                <th>Usage</th>
+                <th>description</th>
+                <th>Picture</th>
+                <th>Amount</th>
+                <th>Sales</th>
+              </tr>
+            </thead>
+            <tbody>{this.medicineList()}</tbody>
+          </table>
+        </>
+      );
+    }
   }
 }

@@ -23,6 +23,19 @@ export default class Navbar extends Component {
                 Add new medicine
               </Link>
             </li>
+            <li className="navbar-item">
+              <Link to="/pharma/pharmacist/viewMedicine" className="nav-link">
+                Search
+              </Link>
+            </li>
+            <li className="navbar-item">
+              <Link
+                to="/pharma/pharmacist/viewMedicine/filter"
+                className="nav-link"
+              >
+                Filter Uses
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

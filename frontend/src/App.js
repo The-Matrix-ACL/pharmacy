@@ -10,7 +10,6 @@ import EditMed from "./Components/editMed.component";
 import AvailableMeds from "./Components/viewMedicine.component";
 import SearchBar from "./Components/search-bar.component";
 import Filter from "./Components/filter.component";
-import Results from "./Components/results.components";
 
 function App() {
   return (
@@ -18,10 +17,6 @@ function App() {
       <div className="container">
         <Navbar />
         <br />
-        <div>
-          <Filter />
-          <SearchBar />
-        </div>
         <Routes>
           <Route path="/pharma/pharmacist/addMed" element={<AddMed />} />
 
@@ -39,12 +34,20 @@ function App() {
             element={<EditMed />}
           />
           <Route
+            path="pharma/pharmacist/viewMedicine"
+            element={<SearchBar />}
+          />
+          <Route
             path="pharma/pharmacist/viewMedicine/:name"
-            element={<Results />}
+            element={<SearchBar />}
+          />
+          <Route
+            path="pharma/pharmacist/viewMedicine/filter"
+            element={<Filter />}
           />
           <Route
             path="pharma/pharmacist/viewMedicine/filter/:usage"
-            element={<Results />}
+            element={<Filter />}
           />
         </Routes>
       </div>
