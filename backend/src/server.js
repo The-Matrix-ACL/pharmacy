@@ -17,12 +17,16 @@ app.use(cors());
 const pharmacist = require("./Routes/PharmacistController");
 const admin = require("./Routes/AdminController");
 const patient = require("./Routes/PatientController");
+const cart = require("./Routes/CartController");
+const order = require("./Routes/OrderController");
 // const user = require("./Routes/userController");
 
 //using routes
 app.use("/pharma/pharmacist", pharmacist);
 app.use("/pharma/admin", admin);
 app.use("/pharma/patient", patient);
+app.use("/pharma/patient/cart", cart);
+app.use("/pharma/patient/order", order);
 app.get("/");
 // app.use("/user", user);
 
@@ -37,3 +41,4 @@ mongoose.connect(MongoURI).then(() => {
     console.log(`Listening to requests on http://localhost:${port}`);
   });
 });
+

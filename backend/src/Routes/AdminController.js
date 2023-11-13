@@ -151,11 +151,20 @@ router.get("/PatientInfo/:username", async (req, res) => {
 router.get("/AvailableMedicine", async (req, res) => {
   const Medications = await medicineModel.find();
 
-  try {
-    res.status(200).json(Medications);
-  } catch (error) {
+});
+
+router.get ("/AvailableMedicine" , async (req, res) => {
+  const Medications = await medicineModel.find();
+  
+  try{
+  res.status(200).json(Medications);
+ }
+ catch(error) {
     res.status(400).json({ error: error.message });
   }
-});
+
+ });
+
+ 
 
 module.exports = router;

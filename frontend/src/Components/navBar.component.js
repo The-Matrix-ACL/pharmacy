@@ -24,6 +24,12 @@ export default class Navbar extends Component {
               </Link>
             </li>
             <li className="navbar-item">
+              <Link to="/pharma/patient/getCart/:id" className="nav-link">
+                Cart
+              </Link>
+            </li>
+
+            <li className="navbar-item">
               <Link to="/pharma/pharmacist/viewMedicine" className="nav-link">
                 Search
               </Link>
