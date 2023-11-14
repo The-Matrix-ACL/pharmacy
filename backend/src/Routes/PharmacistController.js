@@ -4,26 +4,16 @@ const router = express.Router();
 //models
 const Pharmacist = require("../Models/Pharmacist");
 const medicineModel = require("../Models/Medicine");
-const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
-let path = require('path');
-let User = require('../models/User.js');
-
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+let path = require("path");
+let User = require("../models/User.js");
+const nodemailer = require("nodemailer");
+const OTP = require("../Models/OTP.js");
 // Registration endpoint for pharmacists
-router.post("/submitPharmacistRequest"),async (req, res) => {
-  const {
-    username,
-    name,
-    email,
-    password,
-    dateOfBirth,
-    hourlyRate,
-    affiliation,
-    educationalBackground,
-  } = req.body;
-
-  try {
-    const request = await Pharmacist.create({
+router.post("/submitPharmacistRequest"),
+  async (req, res) => {
+    const {
       username,
       name,
       email,
@@ -32,43 +22,61 @@ router.post("/submitPharmacistRequest"),async (req, res) => {
       hourlyRate,
       affiliation,
       educationalBackground,
-    });
-    res.status(201).json({ message: 'Pharmacist registration request submitted successfully' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+    } = req.body;
 
-router.post("/pharmacistchangepassword/:username"),async (req, res) => {
-  const { currentPassword, newPassword } = req.body;
-  const username = req.params.username;
-
-  try {
-    const request = await Pharmacist.findOne({ username });
-
-    if (!request) {
-      return res.status(404).json({ error: 'Pharmacist not found' });
-    }
-
-    if (currentPassword !== request.password) {
-      return res.status(401).json({ error: 'Invalid current password' });
-    }
-
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-    if (!passwordRegex.test(newPassword)) {
-      return res.status(400).json({
-        error: 'Invalid new password. It must contain at least 8 characters, including 1 capital letter, 1 number, and 1 special character.',
+    try {
+      const request = await Pharmacist.create({
+        username,
+        name,
+        email,
+        password,
+        dateOfBirth,
+        hourlyRate,
+        affiliation,
+        educationalBackground,
       });
+      res.status(201).json({
+        message: "Pharmacist registration request submitted successfully",
+      });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
+  };
 
-    request.password = newPassword;
-    await request.save();
+router.post("/pharmacistchangepassword/:username"),
+  async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+    const username = req.params.username;
 
-    res.status(200).json({ message: 'Password changed successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred while changing the password' });
-  }
-};
+    try {
+      const request = await Pharmacist.findOne({ username });
+
+      if (!request) {
+        return res.status(404).json({ error: "Pharmacist not found" });
+      }
+
+      if (currentPassword !== request.password) {
+        return res.status(401).json({ error: "Invalid current password" });
+      }
+
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+      if (!passwordRegex.test(newPassword)) {
+        return res.status(400).json({
+          error:
+            "Invalid new password. It must contain at least 8 characters, including 1 capital letter, 1 number, and 1 special character.",
+        });
+      }
+
+      request.password = newPassword;
+      await request.save();
+
+      res.status(200).json({ message: "Password changed successfully" });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "An error occurred while changing the password" });
+    }
+  };
 
 //add medicine to DB
 router.post("/addMed", async (req, res) => {
@@ -200,63 +208,182 @@ router.get("/ViewMedQuantityAndSales", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-  router.get("/viewMedicineById/:id", async (req, res) => {
-    const id  = req.params.id;
-   
-    try {
-      const med = await medicineModel.findById(id);
-      res.json(med);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json(error);
-    }
-  });
+router.get("/viewMedicineById/:id", async (req, res) => {
+  const id = req.params.id;
 
-  //Upload medicine image
+  try {
+    const med = await medicineModel.findById(id);
+    res.json(med);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+});
 
-  const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'images');
-    },
-    filename: function(req, file, cb) {   
-        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
-    }
+//Upload medicine image
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images");
+  },
+  filename: function (req, file, cb) {
+    cb(null, uuidv4() + "-" + Date.now() + path.extname(file.originalname));
+  },
 });
 
 const fileFilter = (req, file, cb) => {
-    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if(allowedFileTypes.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}
+  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 
 let upload = multer({ storage, fileFilter });
 
-router.route('/addPhoto/:id').post(upload.single('photo'), async (req, res) => {
-  
-  const id  = req.params.id;
+router.route("/addPhoto/:id").post(upload.single("photo"), async (req, res) => {
+  const id = req.params.id;
 
-  try{
-  const med = await medicineModel.findOneAndUpdate(
-    { _id: id },
-    {
-      picture: photo
-    }
-  );
-  res.status(200).json(med);
-} catch (error) {
-  res.status(400).json({ error: error.message });
-}
-
-
+  try {
+    const med = await medicineModel.findOneAndUpdate(
+      { _id: id },
+      {
+        picture: photo,
+      }
+    );
+    res.status(200).json(med);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
+//otp
 
-  
+router.put("/verify", async (req, res) => {
+  try {
+    let { email, otp, newPassword } = req.body;
+    const otpValidity = await verifyOTP({ email, otp });
+    if (otpValidity) {
+      const modifiedPharmacist = await Pharmacist.findOneAndUpdate(
+        { email },
+        { password: newPassword }
+      );
+    }
+    Console.log(modifiedPharmacist);
+    res.status(200).json({ valid: otpValidity });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+//helper functions
+
+const verifyOTP = async ({ email, otp }) => {
+  try {
+    if (!(email && otp)) {
+      throw Error("Provide values for Email and OTP");
+    }
+    const matchedOTPRecord = await OTP.findOne({ email });
+    if (!matchedOTPRecord) {
+      throw Error("No OTP Record Found");
+    }
+    const { expiresAt } = matchedOTPRecord;
+    if (expiresAt < Date.now()) {
+      await OTP.deleteOne({ email });
+      throw Error("OTP has expired. Please request another one");
+    }
+    const otpInRecord = matchedOTPRecord.otp;
+    if (otpInRecord == otp) {
+      return true;
+    } else return false;
+  } catch (error) {
+    throw error;
+  }
+};
+
+router.post("/requestOTP", async (req, res) => {
+  console.log("pharmacist is ok");
+  try {
+    const { email } = req.body;
+    const subject = "Email Verification";
+    message = "Verify your email with the code below";
+    duration = 1;
+    const createdOTP = await sendOTP({
+      email,
+      subject,
+      message,
+      duration,
+    });
+    res.status(200).json(createdOTP);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+//helper functions
+const sendOTP = async ({ email, subject, message, duration = 1 }) => {
+  try {
+    if (!(email && subject && message)) {
+      throw error("provide values for email, subject and message");
+    }
+    await OTP.deleteOne({ email });
+    const generatedOTP = await generateOTP();
+    console.log(generatedOTP);
+    const mailOptions = {
+      from: "el7a2niYaMeleegy@hotmail.com",
+      to: email,
+      subject,
+      html: `<p>${message}</p><p style="color:tomato; font-size:25px; letter-spacing:2px;"><b>${generatedOTP}</b></p>`,
+    };
+    await sendEmail(mailOptions);
+
+    const newOTP = await new OTP({
+      email,
+      otp: generatedOTP,
+      createdAT: Date.now(),
+      expiresAt: Date.now() + 3600000 * +duration,
+    });
+    const createdOTPRecord = await newOTP.save();
+    return createdOTPRecord;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const generateOTP = async () => {
+  try {
+    return `${Math.floor(1000 + Math.random() * 9000)}`;
+  } catch (error) {
+    throw error;
+  }
+};
+
+let transporter = nodemailer.createTransport({
+  host: "smtp-mail.outlook.com",
+  auth: {
+    user: "el7a2niYaMeleegy@hotmail.com",
+    pass: "PASSWORD12345678",
+  },
+});
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("ready for message");
+    console.log(success);
+  }
+});
+
+const sendEmail = async (mailOption) => {
+  try {
+    await transporter.sendMail(mailOption);
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = router;
 //module.exports = { createPharmacistRequest, pharmacistchangepassword };
-
-

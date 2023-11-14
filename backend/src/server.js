@@ -9,10 +9,20 @@ app.use(express.json());
 app.use(cors());
 
 const router = express.Router();
-const { addAdmin,deletePatient,deletePharmacist,viewPharmacistRequests,viewPatients,acceptPharmacistRequest,adminchangepassword} = require('./Routes/AdminController'); // Import the new admin controller functions
-const{login,logout }=require('./Routes/login');
+const {
+  addAdmin,
+  deletePatient,
+  deletePharmacist,
+  viewPharmacistRequests,
+  viewPatients,
+  acceptPharmacistRequest,
+  adminchangepassword,
+  requestOTP,
+  verify,
+} = require("./Routes/AdminController"); // Import the new admin controller functions
+const { login, logout } = require("./Routes/login");
 
-const path = require('path');
+const path = require("path");
 
 const corsOptions = {
   origin: "http://localhost:3000", // Allow requests from this origin
@@ -22,7 +32,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 
 //import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -35,7 +44,7 @@ const admin = require("./Routes/AdminController");
 const patient = require("./Routes/PatientController");
 const cart = require("./Routes/CartController");
 const order = require("./Routes/OrderController");
-const log = require('./Routes/login');
+const log = require("./Routes/login");
 // const user = require("./Routes/userController");
 
 //using routes
@@ -59,19 +68,13 @@ mongoose.connect(MongoURI).then(() => {
   });
 });
 
-
-
-
-
-
-
 app.post("/addAdmin", addAdmin);
-app.post("/login",login);
-app.post("/logout",logout);
-app.post("/pharmacistRequest/:id",acceptPharmacistRequest);
-app.post("/adminchangepassword/:username",adminchangepassword);
+app.post("/login", login);
+app.post("/logout", logout);
+app.post("/pharmacistRequest/:id", acceptPharmacistRequest);
+app.post("/adminchangepassword/:username", adminchangepassword);
 app.delete("/deletePharmacist/:id", deletePharmacist);
 app.delete("/deletePatient/:id", deletePatient);
 
 app.get("/viewPharmacistRequests", viewPharmacistRequests);
-app.get("/viewpatients",viewPatients);
+app.get("/viewpatients", viewPatients);
