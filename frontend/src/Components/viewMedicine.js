@@ -15,6 +15,9 @@ const Medicine= props => (
     <td>
       <Link to={"editMed/"+props.medicine._id}>edit</Link> 
     </td>
+    <td>
+      <Link to={"/addToCart/userid/medid" }>add to cart</Link> 
+    </td>
   </tr>
 )
 
@@ -26,7 +29,7 @@ export default class AvailableMeds extends Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/pharma/pharmacist/AvailableMedicine')
+        axios.get('http://localhost:8000/AvailableMedicine')
           .then(response => {
             this.setState({ medicine: response.data })
           })
