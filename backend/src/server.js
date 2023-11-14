@@ -7,6 +7,7 @@ require("dotenv").config();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+//const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 //import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -41,4 +42,3 @@ mongoose.connect(MongoURI).then(() => {
     console.log(`Listening to requests on http://localhost:${port}`);
   });
 });
-
