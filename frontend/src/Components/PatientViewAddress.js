@@ -17,7 +17,7 @@ function PatientViewAddress() {
       const patientUsername = localStorage.getItem('username');
 
       // Fetch addresses from the server
-      const response = await axios.get(`http://localhost:8000/viewaddress/${patientUsername}`);
+      const response = await axios.get(`http://localhost:5000/viewaddress/${patientUsername}`);
 
       // Set the addresses from the response data
       setAddresses(response.data.addresses);

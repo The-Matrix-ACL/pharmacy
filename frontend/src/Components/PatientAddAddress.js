@@ -2,6 +2,8 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+
+
 function PatientAddAddress() {
   const username = localStorage.getItem('username'); // Assuming the parameter is 'username'
   console.log('Received request for username:', username);
@@ -20,7 +22,7 @@ function PatientAddAddress() {
 
   const handleAddAddress = async () => {
     try {
-      const response = await axios.post(`http://localhost:8000/addAddress/${username}`, {
+      const response = await axios.post(`http://localhost:5000/addAddress/${username}`, {
         addressTitle,
         governate,
         city,
