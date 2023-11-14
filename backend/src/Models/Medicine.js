@@ -37,7 +37,7 @@ const medicineSchema = new Schema(
       required: true,
     },
     picture: {
-      type: String,
+      type: File,
       required: true,
     },
     amount: {

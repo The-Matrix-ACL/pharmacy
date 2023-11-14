@@ -115,10 +115,10 @@ router.get("/viewMedicine/:name", async (req, res) => {
         .status(404)
         .json({ message: "No medicine with this name on record" });
     }
-    res.json(med);
+    res.status(200).json(med);
   } catch (error) {
     console.error(error);
-    res.status(500).json(error);
+    res.status(400).json(error);
   }
 });
 router.get("/viewMedicine/filter/:usage", async (req, res) => {
@@ -131,10 +131,10 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
         .status(404)
         .json({ message: "No medicine with this use on record" });
     }
-    res.json(med);
+    res.status(200).json(med);
   } catch (error) {
     console.error(error);
-    res.status(500).json(error);
+    res.status(400).json(error);
   }
 });
 
@@ -151,11 +151,20 @@ router.get("/PatientInfo/:username", async (req, res) => {
 router.get("/AvailableMedicine", async (req, res) => {
   const Medications = await medicineModel.find();
 
-  try {
-    res.status(200).json(Medications);
-  } catch (error) {
+});
+
+router.get ("/AvailableMedicine" , async (req, res) => {
+  const Medications = await medicineModel.find();
+  
+  try{
+  res.status(200).json(Medications);
+ }
+ catch(error) {
     res.status(400).json({ error: error.message });
   }
-});
+
+ });
+
+ 
 
 module.exports = router;

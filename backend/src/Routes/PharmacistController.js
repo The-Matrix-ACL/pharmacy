@@ -46,7 +46,51 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+//My experiment
+/*
+let posting = multer({ storage, fileFilter });
+router
+  .route("/register")
+  .post(posting.fields("ID", "Degree", "License"), async (req, res) => {
+    try {
+      const {
+        username,
+        name,
+        email,
+        password,
+        dateOfBirth,
+        hourlyRate,
+        affiliation,
+        educationalBackground,
+      } = req.body;
 
+      // Hash the password before storing it in the database
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newPharmacist = new Pharmacist({
+        username,
+        name,
+        email,
+        password: hashedPassword,
+        dateOfBirth,
+        hourlyRate,
+        affiliation,
+        educationalBackground,
+        ID,
+        Degree,
+        License,
+      });
+
+      await newPharmacist.save();
+      res.status(201).json({
+        message: "Pharmacist registration request submitted successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+*/
 //add medicine to DB
 router.post("/addMed", async (req, res) => {
   const {

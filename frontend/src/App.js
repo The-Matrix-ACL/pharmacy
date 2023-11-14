@@ -17,8 +17,6 @@ function App() {
       <div className="container">
         <Navbar />
         <br />
-        <SearchBar />
-        <Filter />
         <Routes>
           <Route path="/pharma/pharmacist/addMed" element={<AddMed />} />
 
@@ -34,6 +32,22 @@ function App() {
           <Route
             path="/pharma/pharmacist/AvailableMedicine/editMed"
             element={<EditMed />}
+          />
+          <Route
+            path="pharma/pharmacist/viewMedicine"
+            element={<SearchBar />}
+          />
+          <Route
+            path="pharma/pharmacist/viewMedicine/:name"
+            element={<SearchBar />}
+          />
+          <Route
+            path="pharma/pharmacist/viewMedicine/filter"
+            element={<Filter />}
+          />
+          <Route
+            path="pharma/pharmacist/viewMedicine/filter/:usage"
+            element={<Filter />}
           />
         </Routes>
       </div>

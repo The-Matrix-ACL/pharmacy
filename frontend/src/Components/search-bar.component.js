@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
-import medicineModel from "../../backend/src/Models";
+
+const Medicine = (props) => (
+  <tr>
+    <td>{props.medicine.name}</td>
+    <td>{props.medicine.price}</td>
+    <td>{props.medicine.ingredients}</td>
+    <td>{props.medicine.usage}</td>
+    <td>{props.medicine.description}</td>
+    <td>{props.medicine.picture}</td>
+    <td>{props.medicine.amount}</td>
+    <td>{props.medicine.sales}</td>
+    <td></td>
+  </tr>
+);
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -8,43 +21,85 @@ export default class SearchBar extends Component {
 
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.searchFor = this.searchFor.bind(this);
-    this.show = this.show.bind(this);
+    //this.show = this.show.bind(this);
 
     this.state = {
-      name: [],
+      name: "",
+      medicine: [],
+      searched: false,
     };
   }
+
   onChangeSearch(e) {
     this.setState({
       name: e.target.value,
     });
   }
 
+  medicineList() {
+    return this.state.medicine.map((currentmedicine) => {
+      return <Medicine medicine={currentmedicine} key={currentmedicine._id} />;
+    });
+  }
   searchFor(e) {
     e.preventDefault();
-    const name = this.state.name;
+    let name = this.state.name;
 
-    axios.get(`http://localhost:8000/viewMedicine/${name}`).then((response) => {
-      this.state({ name: response.data });
-      this.show = medicineModel.find();
-      console.log(response);
-    });
+    axios
+      .get("http://localhost:8000/pharma/pharmacist/viewMedicine/" + name)
+      .then((response) => {
+        this.setState({ medicine: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    this.setState({ searched: true });
   }
 
   render() {
-    return (
-      <>
-        <form onSubmit={this.searchFor}>
-          <label for="search">Search</label>
-          <input
-            className="form-control"
-            value={this.state.search}
-            placeholder="Search..."
-            onChange={this.onChangeSearch}
-          />
-          <input type="submit" value="Search" className="btn btn-primary" />
-        </form>
-      </>
-    );
+    if (this.state.searched) {
+      return (
+        <>
+          <form onSubmit={this.searchFor}>
+            <input
+              className="form-control"
+              placeholder="Search..."
+              onChange={this.onChangeSearch}
+            />
+            <input type="submit" value="Search" className="btn btn-primary" />
+          </form>
+          <table className="table">
+            <thead className="thead-light">
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Ingredients</th>
+                <th>Usage</th>
+                <th>description</th>
+                <th>Picture</th>
+                <th>Amount</th>
+                <th>Sales</th>
+              </tr>
+            </thead>
+            <tbody>{this.medicineList()}</tbody>
+          </table>
+        </>
+      );
+    }
+    if (!this.state.searched) {
+      return (
+        <>
+          <form onSubmit={this.searchFor}>
+            <input
+              className="form-control"
+              placeholder="Search..."
+              onChange={this.onChangeSearch}
+            />
+            <input type="submit" value="Search" className="btn btn-primary" />
+          </form>
+        </>
+      );
+    }
   }
 }
+
