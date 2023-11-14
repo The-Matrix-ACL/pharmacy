@@ -1,90 +1,163 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const router = express.Router();
-const Admin = require('C:\Users\ahmed\Desktop\ACLProject\src\Models\Admin.js');
-const Pharmacist = require('./Pharmacist'); // Import the Pharmacist model
-const Patient = require('./Patient'); // Import the Patient model
+const Admin = require('../Models/Admin');
 
-// Registration endpoint for admins
-router.post('/register', async (req, res) => {
+const addAdmin = async (req, res) => {
+  const { username, password } = req.body;
+
   try {
-    const { username, password } = req.body;
-
-    // Check if an admin with the same username already exists
+    // Check if the provided username already exists
     const existingAdmin = await Admin.findOne({ username });
-
     if (existingAdmin) {
-      return res.status(400).json({ message: 'Admin already exists' });
+      return res.status(400).json({ error: 'Username already exists' });
     }
 
-    // Hash the password before storing it in the database  
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Create a new administrator
+    const admin = new Admin({ username, password });
+    await admin.save();
 
-    const newAdmin = new Admin({
-      username,
-      password: hashedPassword,
-    });
-
-    await newAdmin.save();
-    res.status(201).json({ message: 'Admin registration successful' });
+    res.status(201).json({ message: 'Administrator added successfully' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ error: 'An error occurred while adding the administrator' });
   }
-});
+};
 
-// Remove a pharmacist by ID
-router.delete('/removePharmacist/:id', async (req, res) => {
+
+
+const PharmacistRequest = require('../Models/Pharmacist'); // Import the Pharmacist model
+const Patient = require('../Models/Patient'); // Import the Patient model
+
+// Function to delete a pharmacist by ID
+const deletePharmacist = async (req, res) => {
+  
+
   try {
     const pharmacistId = req.params.id;
-    const removedPharmacist = await Pharmacist.findByIdAndRemove(pharmacistId);
+
+    const pharmacist = await PharmacistRequest.findByIdAndDelete(pharmacistId);
+
+    if (!pharmacist) {
+      console.error('Patient not found:', pharmacistId);
+      return res.status(404).json({ error: 'Pharmacist not found' });
+    }
+
+    console.log('Pharmacist deleted:', pharmacistId);
+    res.status(204).end(); // No content to return after successful deletion
+  } catch (error) {
+    console.error('Error deleting pharmacist:', error);
+    res.status(500).json({ error: 'An error occurred while removing the pharmacist' });
+  }
+};
+
+// Function to delete a patient by ID
+ 
     
-    if (!removedPharmacist) {
-      return res.status(404).json({ message: 'Pharmacist not found' });
+const deletePatient = async (req, res) => {
+    try {
+      const patientId = req.params.id;
+  
+      const patient = await Patient.findByIdAndDelete(patientId);
+  
+      if (!patient) {
+        console.error('Patient not found:', patientId);
+        return res.status(404).json({ error: 'Patient not found' });
+      }
+  
+      console.log('Patient deleted:', patientId);
+      res.status(204).end(); // No content to return after successful deletion
+    } catch (error) {
+      console.error('Error deleting patient:', error);
+      res.status(500).json({ error: 'An error occurred while removing the patient' });
     }
+  };
+  
+  const viewPharmacistRequests = async (req, res) => {
+    try {
+      // Assuming you have a model named PharmacistRequest to store pharmacist requests
+      const pharmacistRequests = await PharmacistRequest.find();
+      
+      res.status(200).json(pharmacistRequests);
+    } catch (error) {
+      console.error('Error fetching pharmacist requests:', error);
+      res.status(500).json({ error: 'An error occurred while fetching pharmacist requests' });
+    }
+  };
 
-    res.json({ message: 'Pharmacist removed successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
+  const viewPatients = async (req, res) => {
+    try {
+      
+      const patientInfo = await Patient.find();
+      
+      res.status(200).json(patientInfo);
+    } catch (error) {
+      console.error('Error fetching patient information:', error);
+      res.status(500).json({ error: 'An error occurred while fetching patient information' });
+    }
+  };
+  
 
-// Remove a patient by ID
-router.delete('/removePatient/:id', async (req, res) => {
+
+const acceptPharmacistRequest = async (req, res) => {
   try {
-    const patientId = req.params.id;
-    const removedPatient = await Patient.findByIdAndRemove(patientId);
-    
-    if (!removedPatient) {
-      return res.status(404).json({ message: 'Patient not found' });
+    const pharmacistId = req.params.id;
+    const { decision } = req.body;
+
+    // Ensure that the decision is one of the allowed values
+    if (!['approved', 'rejected', 'pending'].includes(decision)) {
+      return res.status(400).json({ error: 'Invalid decision. Use "approved", "rejected", or "pending".' });
     }
 
-    res.json({ message: 'Patient removed successfully' });
+    // Find the pharmacist request by ID
+    const pharmacistRequest = await PharmacistRequest.findById(pharmacistId);
+
+    if (!pharmacistRequest) {
+      console.error('Pharmacist request not found:', pharmacistId);
+      return res.status(404).json({ error: 'Pharmacist request not found' });
+    }
+
+    // Update the status based on the decision
+    pharmacistRequest.status = decision;
+    await pharmacistRequest.save();
+
+    console.log(`Pharmacist request ${pharmacistId} ${decision}ed`);
+    res.status(200).json({ message: `Pharmacist request ${pharmacistId} ${decision}ed successfully` });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error accepting/rejecting pharmacist request:', error);
+    res.status(500).json({ error: 'An error occurred while processing the request' });
   }
-});
+};
 
 
-// View all pharmacist registration information
-router.get('/pharmacistRegistrationInfo', async (req, res) => {
+
+
+const adminchangepassword = async (req, res) => {
+  const {currentPassword, newPassword } = req.body;
+  const username=req.params.username;
+
   try {
-    const pharmacistInfo = await Pharmacist.find({}, '-password'); // Exclude the password field
+    const admin = await Admin.findOne({ username });
 
-    if (!pharmacistInfo || pharmacistInfo.length === 0) {
-      return res.status(404).json({ message: 'No pharmacist registration information found' });
+    if (!admin) {
+      return res.status(404).json({ error: 'Admin not found' });
     }
 
-    res.json(pharmacistInfo);
+    if (currentPassword !== admin.password) {
+      return res.status(401).json({ error: 'Invalid current password' });
+    }
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+    if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({
+        error: 'Invalid new password. It must contain at least 8 characters, including 1 capital letter, 1 number, and 1 special character.',
+      });
+    }
+
+    admin.password = newPassword;
+    await admin.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ error: 'An error occurred while changing the password' });
   }
-});
+};
 
 
-
-
-module.exports = router;
+module.exports = { deletePharmacist, deletePatient, addAdmin, viewPharmacistRequests, viewPatients, acceptPharmacistRequest,adminchangepassword };
