@@ -7,7 +7,6 @@ const AddressModel = require("../Models/DeliveryAddress.js")
 
 // Registration endpoint
 router.post("/addPatient", async (req, res) => {
-  console.log("a7a");
   const {
     username,
     name,
