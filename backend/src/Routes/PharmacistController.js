@@ -4,6 +4,10 @@ const router = express.Router();
 //models
 const Pharmacist = require("../Models/Pharmacist");
 const medicineModel = require("../Models/Medicine");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+let path = require("path");
+let User = require("../models/User.js");
 
 // Registration endpoint for pharmacists
 router.post("/register", async (req, res) => {
@@ -106,36 +110,39 @@ router.post("/AvailableMedicine/editMed/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
 router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
   console.log(name);
   try {
     const med = await medicineModel.find({ name: name });
-    if (med.length === 0 || !med) {
+    if (!med) {
       return res
         .status(404)
         .json({ message: "No medicine with this name on record" });
     }
-    res.json(med);
+    res.status(200).json(med);
   } catch (error) {
     console.error(error);
-    res.status(500).json(error);
+    res.status(400).json(error);
   }
 });
 router.get("/viewMedicine/filter/:usage", async (req, res) => {
   const { usage } = req.params;
   console.log(usage);
   try {
-    const med = await medicineModel.find({ usage: usage });
-    if (med.length === 0 || !med) {
+    const med = await medicineModel.find({
+      usage: usage,
+    });
+    if (!med) {
       return res
         .status(404)
         .json({ message: "No medicine with this use on record" });
     }
-    res.json(med);
+    res.status(200).json(med);
   } catch (error) {
     console.error(error);
-    res.status(500).json(error);
+    res.status(400).json(error);
   }
 });
 router.get("/ViewMedQuantityAndSales", async (req, res) => {
@@ -167,28 +174,61 @@ router.get("/ViewMedQuantityAndSales", async (req, res) => {
     { _id: 0, amount: 1, sales: 1 }
   );
 
-<<<<<<< HEAD
   try {
     res.status(200).json(Medications);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
-=======
-  router.get("/viewMedicineById/:id", async (req, res) => {
-    const id  = req.params.id;
-   
-    try {
-      const med = await medicineModel.findById(id);
-      res.json(med);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json(error);
-    }
-  });
 
-  
->>>>>>> 1dcd1821573b0c683c64c4b7dd01e515198ecd1e
+router.get("/viewMedicineById/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const med = await medicineModel.findById(id);
+    res.json(med);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+});
+
+//Upload medicine image
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images");
+  },
+  filename: function (req, file, cb) {
+    cb(null, uuidv4() + "-" + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+let upload = multer({ storage, fileFilter });
+
+router.route("/addPhoto/:id").post(upload.single("photo"), async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const med = await medicineModel.findOneAndUpdate(
+      { _id: id },
+      {
+        picture: photo,
+      }
+    );
+    res.status(200).json(med);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;
-// module.exports = { addMed };
