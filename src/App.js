@@ -1,30 +1,74 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const app = express();
-const userRouter = require("./user");
+const mongoose = require('mongoose');
+const cors = require('cors');
+require("dotenv").config();
+const { requireAuth } = require('./MIddleware/authMiddleware');
 
-// MongoDB setup
-mongoose
-  .connect(process.env.MONGO_URI)
+
+const MongoURI = process.env.MONGO_URI;
+const {createPatient, filterPatients,changepassword,addDeliveryAddress, viewAddress, chooseMainAddress} = require('./Routes/PatientController');
+const { createPharmacistRequest,pharmacistchangepassword } = require('./Routes/pharmacistController');
+const { addAdmin,deletePatient,deletePharmacist,viewPharmacistRequests,viewPatients,acceptPharmacistRequest,adminchangepassword} = require('./Routes/AdminController'); // Import the new admin controller functions
+const{login,logout }=require('./Routes/login');
+
+
+const path = require('path');
+
+
+const app = express();
+app.use(cors());
+const port = process.env.PORT || "5000";
+
+mongoose.connect(MongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("connected to db");
-    app.listen(process.env.PORT, () => {
-      console.log("listening for requests on port: ", process.env.PORT);
+    console.log("MongoDB is now connected!");
+    app.listen(port, () => {
+      console.log(`Listening to requests on http://localhost:5000`);
     });
   })
-  .catch((err) => {
-    console.log(err);
-  });
+  .catch(err => console.log(err));
 
-app.use(bodyParser.json());
 
-app.use("/api/patients", userRouter);
 
-const pharmacistRouter = require("./pharmacist"); // Import the pharmacist routes
+const corsOptions = {
+  origin: "http://localhost:3000", // Allow requests from this origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
 
-app.use("/api/pharmacists", pharmacistRouter); // Use the pharmacist routes
+app.use(cors(corsOptions));
 
-const adminRouter = require("./admin"); // Import the admin routes
 
-app.use("/api/admins", adminRouter); // Use the admin routes
+
+
+
+app.use(express.json());
+const router = express.Router();
+router.post("/addPatient", createPatient);
+app.use(router);
+
+
+
+app.get('/patients', filterPatients);
+app.post("/changepassword/:username",changepassword);
+app.post("/addAddress/:username",addDeliveryAddress);
+app.get("/viewAddress/:username",viewAddress);
+app.put("/choosemainaddress/:username/:id",chooseMainAddress);
+
+app.post("/submitPharmacistRequest", createPharmacistRequest);
+app.post("/pharmacistchangepassword/:username",pharmacistchangepassword);
+
+app.post("/addAdmin", addAdmin);
+app.post("/",login);
+app.post("/logout",logout);
+app.post("/pharmacistRequest/:id",acceptPharmacistRequest);
+app.post("/adminchangepassword/:username",adminchangepassword);
+app.delete("/deletePharmacist/:id", deletePharmacist);
+app.delete("/deletePatient/:id", deletePatient);
+
+app.get("/viewPharmacistRequests", viewPharmacistRequests);
+app.get("/viewpatients",viewPatients);
+
+
+
