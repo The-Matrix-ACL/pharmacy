@@ -25,7 +25,7 @@ function PharmacistForm() {
     e.preventDefault();
     try {
       // Replace the URL with the correct endpoint on your server for pharmacist registration request
-      const response = await axios.post('http://localhost:5000/submitPharmacistRequest', pharmacistData);
+      const response = await axios.post('http://localhost:8000/submitPharmacistRequest', pharmacistData);
 
       if (response.status === 201) {
         alert("Pharmacist registration request submitted successfully");

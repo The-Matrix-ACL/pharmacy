@@ -4,7 +4,7 @@ const router = express.Router();
 const Cart = require("../Models/Cart");
 const Patient = require("../Models/Patient");
 const Order= require("../Models/Order");
-const { requireAuth } = require('../Middleware/Auth.js');
+
 
 router.post('/checkoutOrder/:cartid/:userid', async (req,res) => {
     const cartId = req.params.cartid;

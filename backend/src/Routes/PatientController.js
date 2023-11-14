@@ -6,7 +6,8 @@ const AddressModel = require("../Models/DeliveryAddress.js")
 
 
 // Registration endpoint
-const createPatient = async (req, res) => {
+router.post("/addPatient", async (req, res) => {
+  console.log("a7a");
   const {
     username,
     name,
@@ -38,19 +39,19 @@ const createPatient = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-};
+});
 
-const filterPatients = async (req, res) => {
+router.get("/patients", async (req, res) => {
   try {
     const patients = await Patient.find({});
     res.status(200).json(patients);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+});
 
 
-const changepassword = async (req, res) => {
+router.post("/changepassword/:username", async (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const username = req.params.username;
   console.log('Received request for patient username:', username);
@@ -87,9 +88,9 @@ const changepassword = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'An error occurred while changing the password' });
   }
-};
+});
 
-module.exports = { changepassword };
+
 
 
 
@@ -98,7 +99,7 @@ const Address = require('../Models/DeliveryAddress');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
-const addDeliveryAddress = async (req, res) => {
+router.post("/addAddress/:username", async (req, res) => {
   const { addressTitle, governate, city, street, buildingNumber, apartmentNumber } = req.body;
   const username = req.params.username;
 
@@ -142,13 +143,13 @@ const addDeliveryAddress = async (req, res) => {
     console.error('Error adding delivery address:', error);
     res.status(500).json({ error: 'An error occurred while adding the delivery address' });
   }
-};
+});
 
 
 
 
 
-const viewAddress = async (req, res) => {
+router.get("/viewAddress/:username",async (req, res) => {
   const username = req.params.username;
   console.log('Received request for patient username:', username);
   try {
@@ -173,9 +174,9 @@ const viewAddress = async (req, res) => {
     console.error('Error while fetching addresses:', error);
     res.status(500).json({ error: 'An error occurred while fetching addresses' });
   }
-};
+});
 
-const chooseMainAddress = async (req, res) => {
+router.put("/choosemainaddress/:username",async (req, res) => {
   const  addressesId  = req.params.id;
   const username = req.params.username;
   console.log('Address id :',addressesId);
@@ -220,7 +221,7 @@ const chooseMainAddress = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while updating the main address' });
   }
-};
+});
 
 router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
@@ -297,4 +298,4 @@ router.post("/AddAddress/:userid", async(req,res)=>{
 })
 
 module.exports = router;
-module.exports = { createPatient, filterPatients,changepassword,addDeliveryAddress,viewAddress,chooseMainAddress};
+//module.exports = {  filterPatients,changepassword,addDeliveryAddress,viewAddress,chooseMainAddress};

@@ -64,7 +64,7 @@ function Login() {
       </div>
       <button onClick={handleLogin}>Login</button>
       <div>
-        <Link to="/addPatient">Register as a patient</Link>
+        <Link to="/pharma/patient/addPatient">Register as a patient</Link>
       </div>
       <div>
         <Link to="/submitPharmacistRequest">Register as a pharmacist</Link>

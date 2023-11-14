@@ -1,5 +1,4 @@
 // #Task route solution
-const userModel = require("../Models/User.js");
 const { default: mongoose } = require("mongoose");
 
 const createUser = async (req, res) => {

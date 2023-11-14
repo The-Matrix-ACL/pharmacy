@@ -1,5 +1,6 @@
 
 import { BrowserRouter as  Router, Route , Routes} from "react-router-dom";
+import './App.css';
 import React from "react" ;
 import "bootstrap/dist/css/bootstrap.min.css" ;
 //import router from "../../backend/src/Routes/PharmacistController";
@@ -7,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css" ;
 import Navbar from "./Components/navBar.component";
 import AddMed from "./Components/newMed.component";
 import EditMed from "./Components/editMed.component";
-import AvailableMeds from "./Components/viewMedicine.component";
+import AvailableMeds from "./Components/viewMedicine";
 import Cart from "./Components/Cart";
 import Login from './Components/Login'; 
 import PatientHome from "./Components/PatientHome";
@@ -24,19 +25,21 @@ import Changepassword from './Components/PatientChangePassword';
 import PharmacistchangePassword from './Components/PharmacistChangePassword';  
 import PatientAddAddress from './Components/PatientAddAddress';
 import PatientViewAddress from './Components/PatientViewAddress'
+import AddToCart from './Components/AddToCart'
+import Medications from "./Components/Medications";
+
 
 function App() {
   return (
     <Router>
       <div className="container">
-      <Navbar />
       <br/>
       <Routes>
       <Route path="/" element={<Login />} /> 
       <Route path="/pharma/pharmacist/addMed" element ={<AddMed/>} />
-      <Route path="/pharma/pharmacist/AvailableMedicine" element ={<AvailableMeds/>} />
-      <Route path="/pharma/patient/getCart/:id" element ={<Cart/>} />
-
+      <Route path="/AvailableMedicine" element ={<Medications/>} />
+      <Route path="getCart/:id" element ={<Cart/>} />
+      <Route path="addToCart/:userid/:medid" element ={<AddToCart/>} />
       <Route path="/pharma/pharmacist/AvailableMedicine/editMed/:id" element ={<EditMed/>} />
       <Route path="/pharma/pharmacist/AvailableMedicine/editMed" element ={<EditMed/>} />
       <Route path="/patient" element={<PatientHome />} /> {/* Set the AdminHome as the default page for Admin */}

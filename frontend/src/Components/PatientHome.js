@@ -20,7 +20,12 @@ const handleLogout = () => {
         <button onClick={handleLogout}>Logout</button>
         <div>
         <Link to="/changepassword">ChangePassword</Link>
-        <Link to="pharma/patient/getCart/:id">Cart</Link>
+        <div>
+        <Link to="/getCart/:id">Cart</Link>
+        </div>
+        <div>
+        <Link to="/AvailableMedicine">medicine</Link>
+        </div>
       </div>
       </div>
 

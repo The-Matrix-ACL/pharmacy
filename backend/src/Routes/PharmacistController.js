@@ -10,7 +10,7 @@ let path = require('path');
 let User = require('../models/User.js');
 
 // Registration endpoint for pharmacists
-const createPharmacistRequest = async (req, res) => {
+router.post("/submitPharmacistRequest"),async (req, res) => {
   const {
     username,
     name,
@@ -39,7 +39,7 @@ const createPharmacistRequest = async (req, res) => {
   }
 };
 
-const pharmacistchangepassword = async (req, res) => {
+router.post("/pharmacistchangepassword/:username"),async (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const username = req.params.username;
 
@@ -257,6 +257,6 @@ router.route('/addPhoto/:id').post(upload.single('photo'), async (req, res) => {
   
 
 module.exports = router;
-module.exports = { createPharmacistRequest, pharmacistchangepassword };
+//module.exports = { createPharmacistRequest, pharmacistchangepassword };
 
 

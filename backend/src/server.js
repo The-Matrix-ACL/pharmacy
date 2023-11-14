@@ -5,11 +5,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
 
-
-
+const router = express.Router();
+const { addAdmin,deletePatient,deletePharmacist,viewPharmacistRequests,viewPatients,acceptPharmacistRequest,adminchangepassword} = require('./Routes/AdminController'); // Import the new admin controller functions
+const{login,logout }=require('./Routes/login');
 
 const path = require('path');
 
@@ -34,14 +35,15 @@ const admin = require("./Routes/AdminController");
 const patient = require("./Routes/PatientController");
 const cart = require("./Routes/CartController");
 const order = require("./Routes/OrderController");
+const log = require('./Routes/login');
 // const user = require("./Routes/userController");
 
 //using routes
-app.use("/pharma/pharmacist", pharmacist);
-app.use("/pharma/admin", admin);
-app.use("/pharma/patient", patient);
-app.use("/pharma/patient/cart", cart);
-app.use("/pharma/patient/order", order);
+app.use("/", pharmacist);
+//app.use("/pharma/admin", admin);
+app.use("/", patient);
+app.use("/", cart);
+app.use("/", order);
 app.get("/");
 // app.use("/user", user);
 
@@ -57,21 +59,11 @@ mongoose.connect(MongoURI).then(() => {
   });
 });
 
-app.use(express.json());
-const router = express.Router();
-app.post("/addPatient", createPatient);
-app.use(router);
 
 
 
-app.get('/patients', filterPatients);
-app.post("/changepassword/:username",changepassword);
-app.post("/addAddress/:username",addDeliveryAddress);
-app.get("/viewAddress/:username",viewAddress);
-app.put("/choosemainaddress/:username",chooseMainAddress);
 
-app.post("/submitPharmacistRequest", createPharmacistRequest);
-app.post("/pharmacistchangepassword/:username",pharmacistchangepassword);
+
 
 app.post("/addAdmin", addAdmin);
 app.post("/login",login);

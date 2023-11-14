@@ -19,7 +19,7 @@ function AdminForm() {
     e.preventDefault();
     try {
       // Replace the URL with the correct endpoint on your server for adding administrators
-      const response = await axios.post('http://localhost:5000/addAdmin', adminData);
+      const response = await axios.post('http://localhost:8000/addAdmin', adminData);
 
       if (response.status === 201) {
         alert("Administrator added successfully");

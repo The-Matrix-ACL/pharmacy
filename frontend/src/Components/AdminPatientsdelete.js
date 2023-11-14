@@ -8,7 +8,7 @@ function AdminPatientsdelete() {
     // Fetch pharmacist requests when the component mounts
     async function fetchPatient() {
       try {
-        const response = await axios.get('http://localhost:5000/viewpatients');
+        const response = await axios.get('http://localhost:8000/viewpatients');
         if (response.status === 200) {
           setPatientInfo(response.data);
         } else {

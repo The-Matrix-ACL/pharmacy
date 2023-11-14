@@ -16,7 +16,7 @@ function ChangePassword() {
 
   const handleChangePassword = async () => {
     try {
-      const response = await axios.post(`http://localhost:5000/adminchangepassword/${username}`, {
+      const response = await axios.post(`http://localhost:8000/adminchangepassword/${username}`, {
         currentPassword,
         newPassword,
       });

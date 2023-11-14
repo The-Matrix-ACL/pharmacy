@@ -8,7 +8,7 @@ function AdminPharmacistRequests() {
     // Fetch pharmacist requests when the component mounts
     async function fetchPharmacistRequests() {
       try {
-        const response = await axios.get('http://localhost:5000/viewPharmacistRequests');
+        const response = await axios.get('http://localhost:8000/viewPharmacistRequests');
         if (response.status === 200) {
           setPharmacistRequests(response.data);
         } else {
