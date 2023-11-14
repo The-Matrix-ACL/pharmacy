@@ -8,6 +8,21 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+
+
+
+const path = require('path');
+
+const corsOptions = {
+  origin: "http://localhost:3000", // Allow requests from this origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
+
 //import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //importing pages
@@ -42,3 +57,29 @@ mongoose.connect(MongoURI).then(() => {
   });
 });
 
+app.use(express.json());
+const router = express.Router();
+app.post("/addPatient", createPatient);
+app.use(router);
+
+
+
+app.get('/patients', filterPatients);
+app.post("/changepassword/:username",changepassword);
+app.post("/addAddress/:username",addDeliveryAddress);
+app.get("/viewAddress/:username",viewAddress);
+app.put("/choosemainaddress/:username",chooseMainAddress);
+
+app.post("/submitPharmacistRequest", createPharmacistRequest);
+app.post("/pharmacistchangepassword/:username",pharmacistchangepassword);
+
+app.post("/addAdmin", addAdmin);
+app.post("/login",login);
+app.post("/logout",logout);
+app.post("/pharmacistRequest/:id",acceptPharmacistRequest);
+app.post("/adminchangepassword/:username",adminchangepassword);
+app.delete("/deletePharmacist/:id", deletePharmacist);
+app.delete("/deletePatient/:id", deletePatient);
+
+app.get("/viewPharmacistRequests", viewPharmacistRequests);
+app.get("/viewpatients",viewPatients);

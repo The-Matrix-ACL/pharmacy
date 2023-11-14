@@ -10,9 +10,20 @@ let path = require('path');
 let User = require('../models/User.js');
 
 // Registration endpoint for pharmacists
-router.post("/register", async (req, res) => {
+const createPharmacistRequest = async (req, res) => {
+  const {
+    username,
+    name,
+    email,
+    password,
+    dateOfBirth,
+    hourlyRate,
+    affiliation,
+    educationalBackground,
+  } = req.body;
+
   try {
-    const {
+    const request = await Pharmacist.create({
       username,
       name,
       email,
@@ -21,31 +32,43 @@ router.post("/register", async (req, res) => {
       hourlyRate,
       affiliation,
       educationalBackground,
-    } = req.body;
-
-    // Hash the password before storing it in the database
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newPharmacist = new Pharmacist({
-      username,
-      name,
-      email,
-      password: hashedPassword,
-      dateOfBirth,
-      hourlyRate,
-      affiliation,
-      educationalBackground,
     });
-
-    await newPharmacist.save();
-    res.status(201).json({
-      message: "Pharmacist registration request submitted successfully",
-    });
+    res.status(201).json({ message: 'Pharmacist registration request submitted successfully' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(400).json({ error: error.message });
   }
-});
+};
+
+const pharmacistchangepassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const username = req.params.username;
+
+  try {
+    const request = await Pharmacist.findOne({ username });
+
+    if (!request) {
+      return res.status(404).json({ error: 'Pharmacist not found' });
+    }
+
+    if (currentPassword !== request.password) {
+      return res.status(401).json({ error: 'Invalid current password' });
+    }
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+    if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({
+        error: 'Invalid new password. It must contain at least 8 characters, including 1 capital letter, 1 number, and 1 special character.',
+      });
+    }
+
+    request.password = newPassword;
+    await request.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while changing the password' });
+  }
+};
 
 //add medicine to DB
 router.post("/addMed", async (req, res) => {
@@ -171,14 +194,12 @@ router.get("/ViewMedQuantityAndSales", async (req, res) => {
     { _id: 0, amount: 1, sales: 1 }
   );
 
-<<<<<<< HEAD
   try {
     res.status(200).json(Medications);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
-=======
   router.get("/viewMedicineById/:id", async (req, res) => {
     const id  = req.params.id;
    
@@ -234,7 +255,8 @@ router.route('/addPhoto/:id').post(upload.single('photo'), async (req, res) => {
 
 
   
->>>>>>> 1dcd1821573b0c683c64c4b7dd01e515198ecd1e
 
 module.exports = router;
+module.exports = { createPharmacistRequest, pharmacistchangepassword };
+
 

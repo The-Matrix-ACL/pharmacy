@@ -1,170 +1,165 @@
 const express = require("express");
 //const bcrypt = require("bcrypt");
-const router = express.Router();
-const Admin = require("../Models/Admin.js");
-const Pharmacist = require("../Models/Pharmacist.js"); // Import the Pharmacist model
-const Patient = require("../Models/Patient.js"); // Import the Patient model
+const Admin = require('../Models/Admin');
 
-// Registration endpoint for admins
-router.post("/register", async (req, res) => {
+const addAdmin = async (req, res) => {
+  const { username, password } = req.body;
+
   try {
-    const { username, password } = req.body;
-
-    // Check if an admin with the same username already exists
+    // Check if the provided username already exists
     const existingAdmin = await Admin.findOne({ username });
-
     if (existingAdmin) {
-      return res.status(400).json({ message: "Admin already exists" });
+      return res.status(400).json({ error: 'Username already exists' });
     }
 
-    // Hash the password before storing it in the database
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Create a new administrator
+    const admin = new Admin({ username, password });
+    await admin.save();
 
-    const newAdmin = new Admin({
-      username,
-      password: hashedPassword,
-    });
-
-    await newAdmin.save();
-    res.status(201).json({ message: "Admin registration successful" });
+    res.status(201).json({ message: 'Administrator added successfully' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ error: 'An error occurred while adding the administrator' });
   }
-});
+};
 
-// Remove a pharmacist by ID
-router.delete("/removePharmacist/:id", async (req, res) => {
+
+
+const PharmacistRequest = require('../Models/Pharmacist'); // Import the Pharmacist model
+const Patient = require('../Models/Patient'); // Import the Patient model
+
+// Function to delete a pharmacist by ID
+const deletePharmacist = async (req, res) => {
+  
+
   try {
     const pharmacistId = req.params.id;
-    const removedPharmacist = await Pharmacist.findByIdAndRemove(pharmacistId);
 
-    if (!removedPharmacist) {
-      return res.status(404).json({ message: "Pharmacist not found" });
+    const pharmacist = await PharmacistRequest.findByIdAndDelete(pharmacistId);
+
+    if (!pharmacist) {
+      console.error('Patient not found:', pharmacistId);
+      return res.status(404).json({ error: 'Pharmacist not found' });
     }
 
-    res.json({ message: "Pharmacist removed successfully" });
+    console.log('Pharmacist deleted:', pharmacistId);
+    res.status(204).end(); // No content to return after successful deletion
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error('Error deleting pharmacist:', error);
+    res.status(500).json({ error: 'An error occurred while removing the pharmacist' });
   }
-});
+};
 
-// Remove a patient by ID
-router.delete("/removePatient/:id", async (req, res) => {
-  try {
-    const patientId = req.params.id;
-    const removedPatient = await Patient.findByIdAndRemove(patientId);
-
-    if (!removedPatient) {
-      return res.status(404).json({ message: "Patient not found" });
-    }
-
-    res.json({ message: "Patient removed successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// View all pharmacist registration information
-router.get("/pharmacistRegistrationInfo", async (req, res) => {
-  try {
-    const pharmacistInfo = await Pharmacist.find({}, "-password"); // Exclude the password field
-
-    if (!pharmacistInfo || pharmacistInfo.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No pharmacist registration information found" });
-    }
-
-    res.json(pharmacistInfo);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-//view a pharmacist by username
-router.get("/viewPharmacist", async (req, res) => {
-  const { pharmacistUsername } = req.body;
-  console.log(pharmacistUsername);
-  try {
-    const pharmacistInfo = await Pharmacist.find(
-      { username: pharmacistUsername },
-      "-password"
-    ); // Exclude the password field
-    if (!pharmacistInfo || pharmacistInfo.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No pharmacist with this username on record" });
-    }
-    res.json(pharmacistInfo);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json(error);
-  }
-});
-router.get("/viewMedicine/:name", async (req, res) => {
-  const { name } = req.params;
-  console.log(name);
-  try {
-    const med = await medicineModel.find({ name: name });
-    if (med.length === 0 || !med) {
-      return res
-        .status(404)
-        .json({ message: "No medicine with this name on record" });
-    }
-    res.json(med);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json(error);
-  }
-});
-router.get("/viewMedicine/filter/:usage", async (req, res) => {
-  const { usage } = req.params;
-  console.log(usage);
-  try {
-    const med = await medicineModel.find({ usage: usage });
-    if (med.length === 0 || !med) {
-      return res
-        .status(404)
-        .json({ message: "No medicine with this use on record" });
-    }
-    res.json(med);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json(error);
-  }
-});
-
-router.get("/PatientInfo/:username", async (req, res) => {
-  try {
-    const patientUsername = req.params.username;
-    const patientInfo = await Patient.findOne({ username: patientUsername });
-
-    res.status(200).json(patientInfo);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-router.get("/AvailableMedicine", async (req, res) => {
-  const Medications = await medicineModel.find();
-
-});
-
-router.get ("/AvailableMedicine" , async (req, res) => {
-  const Medications = await medicineModel.find();
-  
-  try{
-  res.status(200).json(Medications);
- }
- catch(error) {
-    res.status(400).json({ error: error.message });
-  }
-
- });
-
+// Function to delete a patient by ID
  
+    
+const deletePatient = async (req, res) => {
+    try {
+      const patientId = req.params.id;
+  
+      const patient = await Patient.findByIdAndDelete(patientId);
+  
+      if (!patient) {
+        console.error('Patient not found:', patientId);
+        return res.status(404).json({ error: 'Patient not found' });
+      }
+  
+      console.log('Patient deleted:', patientId);
+      res.status(204).end(); // No content to return after successful deletion
+    } catch (error) {
+      console.error('Error deleting patient:', error);
+      res.status(500).json({ error: 'An error occurred while removing the patient' });
+    }
+  };
+  
+  const viewPharmacistRequests = async (req, res) => {
+    try {
+      // Assuming you have a model named PharmacistRequest to store pharmacist requests
+      const pharmacistRequests = await PharmacistRequest.find();
+      
+      res.status(200).json(pharmacistRequests);
+    } catch (error) {
+      console.error('Error fetching pharmacist requests:', error);
+      res.status(500).json({ error: 'An error occurred while fetching pharmacist requests' });
+    }
+  };
 
-module.exports = router;
+  const viewPatients = async (req, res) => {
+    try {
+      
+      const patientInfo = await Patient.find();
+      
+      res.status(200).json(patientInfo);
+    } catch (error) {
+      console.error('Error fetching patient information:', error);
+      res.status(500).json({ error: 'An error occurred while fetching patient information' });
+    }
+  };
+  
+
+
+const acceptPharmacistRequest = async (req, res) => {
+  try {
+    const pharmacistId = req.params.id;
+    const { decision } = req.body;
+
+    // Ensure that the decision is one of the allowed values
+    if (!['approved', 'rejected', 'pending'].includes(decision)) {
+      return res.status(400).json({ error: 'Invalid decision. Use "approved", "rejected", or "pending".' });
+    }
+
+    // Find the pharmacist request by ID
+    const pharmacistRequest = await PharmacistRequest.findById(pharmacistId);
+
+    if (!pharmacistRequest) {
+      console.error('Pharmacist request not found:', pharmacistId);
+      return res.status(404).json({ error: 'Pharmacist request not found' });
+    }
+
+    // Update the status based on the decision
+    pharmacistRequest.status = decision;
+    await pharmacistRequest.save();
+
+    console.log(`Pharmacist request ${pharmacistId} ${decision}ed`);
+    res.status(200).json({ message: `Pharmacist request ${pharmacistId} ${decision}ed successfully` });
+  } catch (error) {
+    console.error('Error accepting/rejecting pharmacist request:', error);
+    res.status(500).json({ error: 'An error occurred while processing the request' });
+  }
+};
+
+
+
+
+const adminchangepassword = async (req, res) => {
+  const {currentPassword, newPassword } = req.body;
+  const username=req.params.username;
+
+  try {
+    const admin = await Admin.findOne({ username });
+
+    if (!admin) {
+      return res.status(404).json({ error: 'Admin not found' });
+    }
+
+    if (currentPassword !== admin.password) {
+      return res.status(401).json({ error: 'Invalid current password' });
+    }
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+    if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({
+        error: 'Invalid new password. It must contain at least 8 characters, including 1 capital letter, 1 number, and 1 special character.',
+      });
+    }
+
+    admin.password = newPassword;
+    await admin.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while changing the password' });
+  }
+};
+
+
+module.exports = { deletePharmacist, deletePatient, addAdmin, viewPharmacistRequests, viewPatients, acceptPharmacistRequest,adminchangepassword };
