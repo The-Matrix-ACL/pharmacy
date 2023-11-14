@@ -209,9 +209,25 @@ const verifyOTP = async ({ email, otp }) => {
       return true;
     } else return false;
   } catch (error) {
-    throw error;
+    res.status(500).json({ error: error.message });
   }
 };
+
+router.get("/viewMedicine/:name", async (req, res) => {
+  const { name } = req.params;
+  console.log(name);
+  try {
+    const med = await medicineModel.find({ name: name });
+    if (med.length === 0 || !med) {
+      return res
+        .status(404)
+        .json({ message: "No medicine with this name on record" });
+    }
+    res.status(200).json(med);
+  } catch (error) {
+    throw error;
+  }
+});
 
 const requestOTP = async (req, res) => {
   try {
@@ -256,10 +272,28 @@ const sendOTP = async ({ email, subject, message, duration = 1 }) => {
     });
     const createdOTPRecord = await newOTP.save();
     return createdOTPRecord;
-  } catch (error) {
+    console.error(error);
+    res.status(400).json(error);
+  }
+  catch (error) {
     throw error;
   }
 };
+router.get("/viewMedicine/filter/:usage", async (req, res) => {
+  const { usage } = req.params;
+  console.log(usage);
+  try {
+    const med = await medicineModel.find({ usage: usage });
+    if (med.length === 0 || !med) {
+      return res
+        .status(404)
+        .json({ message: "No medicine with this use on record" });
+    }
+    res.status(200).json(med);
+  } catch (error) {
+    throw error;
+  }
+});
 
 const generateOTP = async () => {
   try {
