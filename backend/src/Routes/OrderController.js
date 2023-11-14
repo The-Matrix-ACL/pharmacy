@@ -4,7 +4,9 @@ const router = express.Router();
 const Cart = require("../Models/Cart");
 const Patient = require("../Models/Patient");
 const Order = require("../Models/Order");
+
 //const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+
 const { requireAuth } = require("../Middleware/Auth.js");
 
 router.post("/checkoutOrder/:cartid/:userid", async (req, res) => {
@@ -29,6 +31,7 @@ router.post("/checkoutOrder/:cartid/:userid", async (req, res) => {
     res.status(500).send("You do not have items in cart");
   }
 });
+
 /*
 router.post("/checkoutOrder/payment/:userid", async (req, res) => {
   const session = await stripe.checkout.sessions.create({
@@ -46,6 +49,7 @@ router.post("/checkoutOrder/payment/:userid", async (req, res) => {
   res.redirect(303, session.url);
 });
 */
+
 router.get("/viewOrder/:userid", async (req, res) => {
   const userId = req.params.userid;
 
