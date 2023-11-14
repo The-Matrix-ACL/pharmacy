@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const pharmacistSchema = new Schema({
@@ -10,8 +10,11 @@ const pharmacistSchema = new Schema({
   hourlyRate: Number,
   affiliation: String,
   educationalBackground: String,
+  /*id: File,
+  degree: File,
+  license: File,*/
 });
 
-const Pharmacist = mongoose.model('Pharmacist', pharmacistSchema);
+const Pharmacist = mongoose.model("Pharmacist", pharmacistSchema);
 
 module.exports = Pharmacist;
