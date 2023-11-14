@@ -22,20 +22,7 @@ function App() {
         <Routes>
           <Route path="/pharma/pharmacist/addMed" element={<AddMed />} />
 
-          <Route
-            path="/pharma/pharmacist/AvailableMedicine"
-            element={<AvailableMeds />}
-          />
 
-          <Route
-            path="/pharma/pharmacist/AvailableMedicine/editMed/:id"
-            element={<EditMed />}
-          />
-          <Route
-            path="/pharma/pharmacist/AvailableMedicine/editMed"
-            element={<EditMed />}
-          />
-        </Routes>
       </div>
     </Router>
   );
