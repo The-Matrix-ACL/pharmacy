@@ -42,6 +42,11 @@ export default class Navbar extends Component {
                 Filter Uses
               </Link>
             </li>
+            <li className="navbar-item">
+              <Link to="/pharma/patient/viewOrder/:userid" className="nav-link">
+                View Order
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
