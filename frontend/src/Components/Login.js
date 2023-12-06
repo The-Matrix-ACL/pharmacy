@@ -64,10 +64,13 @@ function Login() {
       </div>
       <button onClick={handleLogin}>Login</button>
       <div>
-        <Link to="/pharma/patient/addPatient">Register as a patient</Link>
+        <Link to="/addPatient">Register as a patient</Link>
       </div>
       <div>
         <Link to="/submitPharmacistRequest">Register as a pharmacist</Link>
+      </div>
+      <div>
+      <Link to="/resetPassword">resetPassword</Link>
       </div>
     </div>
   );

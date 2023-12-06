@@ -29,11 +29,13 @@ import Medications from "./Components/Medications";
 import ResetPasswordPatient from "./pages/resetPasswordPatient";
 import ResetPasswordAdmin from "./pages/resetPasswordAdmin";
 import ResetPasswordPharmacist from "./pages/resetPasswordPharmacist";
+import Order from "./Components/order-view.components";
 
 function App() {
   return (
     <Router>
       <div className="container">
+      <Navbar />
         <br />
         <Routes>
           <Route path="/" element={<Login />} />
@@ -71,19 +73,31 @@ function App() {
           />
           <Route path="/addAddress" element={<PatientAddAddress />} />
           <Route path="/viewAddress" element={<PatientViewAddress />} />
-        </Routes>
+       
         <Route
-          path="/pharma/patient/resetPassword"
+          path="/resetPassword"
           element={<ResetPasswordPatient />}
         />
         <Route
-          path="/pharma/admin/resetPassword"
+          path="/resetPassword"
           element={<ResetPasswordAdmin />}
         />{" "}
         <Route
-          path="/pharma/pharmacist/resetPassword"
+          path="/resetPassword"
           element={<ResetPasswordPharmacist />}
         />
+         
+
+         <Route
+          path="/viewOrder/:userid"
+          element={<Order/>}
+        />
+         <Route
+          path="/cancelOrder/:userid"
+          element={< Order/>}
+        />
+        </Routes>
+
       </div>
     </Router>
   );

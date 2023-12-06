@@ -18,7 +18,7 @@ const ResetPasswordAdmin = () => {
     try {
       console.log(formData);
       const response = await fetch(
-        "http://localhost:8000/pharma/admin/verify",
+        "http://localhost:8000/verify",
         {
           method: "PUT",
           headers: {
@@ -45,7 +45,7 @@ const ResetPasswordAdmin = () => {
     event.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8000/pharma/admin/requestOTP",
+        "http://localhost:8000/requestOTP",
         {
           method: "POST",
           headers: {

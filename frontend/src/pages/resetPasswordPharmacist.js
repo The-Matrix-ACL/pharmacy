@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+
+
 const ResetPasswordPharmacist = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -18,13 +20,13 @@ const ResetPasswordPharmacist = () => {
     try {
       console.log(formData);
       const response = await fetch(
-        "http://localhost:8000/pharma/pharmacist/verify",
+        "http://localhost:8000/verify",
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+         
+          body: JSON.stringify({
+            email:formData.email, otp:formData.otp, newPassword:formData.newPassword
+          }),
         }
       );
 
@@ -45,7 +47,7 @@ const ResetPasswordPharmacist = () => {
     event.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8000/pharma/pharmacist/requestOTP",
+        "http://localhost:8000/requestOTP",
         {
           method: "POST",
           headers: {

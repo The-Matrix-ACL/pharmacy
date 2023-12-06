@@ -3,6 +3,9 @@ const express = require("express");
 const Admin = require("../Models/Admin");
 const nodemailer = require("nodemailer");
 const OTP = require("../Models/OTP.js");
+const PharmacistRequest = require("../Models/Pharmacist.js"); // Import the Pharmacist model
+const Patient = require("../Models/Patient"); // Import the Patient model
+
 const addAdmin = async (req, res) => {
   const { username, password } = req.body;
 
@@ -25,8 +28,7 @@ const addAdmin = async (req, res) => {
   }
 };
 
-const PharmacistRequest = require("../Models/Pharmacist"); // Import the Pharmacist model
-const Patient = require("../Models/Patient"); // Import the Patient model
+
 
 // Function to delete a pharmacist by ID
 const deletePharmacist = async (req, res) => {
@@ -213,7 +215,7 @@ const verifyOTP = async ({ email, otp }) => {
   }
 };
 
-router.get("/viewMedicine/:name", async (req, res) => {
+const getMedicineByName =async (req, res) => {
   const { name } = req.params;
   console.log(name);
   try {
@@ -227,7 +229,7 @@ router.get("/viewMedicine/:name", async (req, res) => {
   } catch (error) {
     throw error;
   }
-});
+};
 
 const requestOTP = async (req, res) => {
   try {
@@ -279,7 +281,7 @@ const sendOTP = async ({ email, subject, message, duration = 1 }) => {
     throw error;
   }
 };
-router.get("/viewMedicine/filter/:usage", async (req, res) => {
+const filterMedicineByUsage = async (req, res) => {
   const { usage } = req.params;
   console.log(usage);
   try {
@@ -293,7 +295,7 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
   } catch (error) {
     throw error;
   }
-});
+}
 
 const generateOTP = async () => {
   try {
@@ -339,4 +341,6 @@ module.exports = {
   adminchangepassword,
   verify,
   requestOTP,
+  filterMedicineByUsage,
+  getMedicineByName,
 };
