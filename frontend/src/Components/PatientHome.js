@@ -26,6 +26,12 @@ const handleLogout = () => {
         <div>
         <Link to="/AvailableMedicine">medicine</Link>
         </div>
+        <div>
+        <Link to="/addAddress">Add New Address</Link>
+      </div> 
+      <div>
+        <Link to="/viewAddress">View My Address</Link>
+      </div>
       </div>
       </div>
 

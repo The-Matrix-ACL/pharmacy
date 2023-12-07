@@ -6,7 +6,6 @@ function Cart() {
   const userId = localStorage.getItem('userId')
 
   useEffect(() => {
-    // Fetch pharmacist requests when the component mounts
     async function fetchCart() {
       try {
         const response = await axios.get(`http://localhost:8000/patient/getCart/${userId}`);
@@ -23,8 +22,20 @@ function Cart() {
     fetchCart();
   }, []);
 
+  const handleCheckout = async (userId) => {
+    try {
+
+     await axios.post(`http://localhost:8000/checkoutOrder/${userId}`);
+     
+    } catch (error) {
+      console.error("Error :", error);
+    }
+  };
+
+
   let meds = cart.medications;
   let bill = cart.bill;
+  
   
 
   return (
@@ -53,6 +64,11 @@ function Cart() {
         </tbody>
       </table>
       )}
+      <td>
+                <button onClick={() => handleCheckout(userId)}>
+                 Checkout Order
+                </button>
+              </td>
     </div>
   );
 }

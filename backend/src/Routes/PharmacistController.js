@@ -10,6 +10,11 @@ let path = require("path");
 let User = require("../models/User.js");
 const nodemailer = require("nodemailer");
 const OTP = require("../Models/OTP.js");
+var cors = require('cors')
+
+var app = express()
+app.use(cors())
+
 // Registration endpoint for pharmacists
 router.post("/submitPharmacistRequest"),
   async (req, res) => {
@@ -21,7 +26,7 @@ router.post("/submitPharmacistRequest"),
       dateOfBirth,
       hourlyRate,
       affiliation,
-      educationalBackground,
+      educationalBackground
     } = req.body;
 
     try {
@@ -33,7 +38,7 @@ router.post("/submitPharmacistRequest"),
         dateOfBirth,
         hourlyRate,
         affiliation,
-        educationalBackground,
+        educationalBackground
       });
       res.status(201).json({
         message: "Pharmacist registration request submitted successfully",
@@ -267,17 +272,20 @@ router.route("/addPhoto/:id").post(upload.single("photo"), async (req, res) => {
 
 router.put("/verify", async (req, res) => {
   try {
-    let { email, otp, newPassword } = req.body;
+    const { email, otp, newPassword } = req.body;
     const otpValidity = await verifyOTP({ email, otp });
+    Console.log(otpValidity);
     if (otpValidity) {
       const modifiedPharmacist = await Pharmacist.findOneAndUpdate(
-        { email },
+        { email: email },
         { password: newPassword }
       );
     }
-    Console.log(modifiedPharmacist);
+    Console.log(otpValidity);
     res.status(200).json({ valid: otpValidity });
   } catch (error) {
+    
+    console.log("aaa")
     res.status(400).send(error.message);
   }
 });
@@ -285,24 +293,30 @@ router.put("/verify", async (req, res) => {
 //helper functions
 
 const verifyOTP = async ({ email, otp }) => {
+  
   try {
     if (!(email && otp)) {
       throw Error("Provide values for Email and OTP");
     }
-    const matchedOTPRecord = await OTP.findOne({ email });
+  
+    const matchedOTPRecord = await OTP.findOne({ email: email });
+    
     if (!matchedOTPRecord) {
       throw Error("No OTP Record Found");
     }
+
     const { expiresAt } = matchedOTPRecord;
     if (expiresAt < Date.now()) {
-      await OTP.deleteOne({ email });
+      await OTP.deleteOne({ email: email });
       throw Error("OTP has expired. Please request another one");
     }
+   
     const otpInRecord = matchedOTPRecord.otp;
     if (otpInRecord == otp) {
       return true;
     } else return false;
   } catch (error) {
+  
     throw error;
   }
 };

@@ -19,7 +19,7 @@ export default class ViewOrder extends Component {
 
   componentDidMount() {
     axios
-      .get("https://localhost:8000/pharma/order/viewOrder/" + userid)
+      .get("https://localhost:8000/viewOrder/" + userid)
       .then((response) => {
         this.setState({ order: response.data });
       })
@@ -36,7 +36,7 @@ export default class ViewOrder extends Component {
   }
   cancel(e) {
     axios
-      .delete("http://localost:8000/pharma/cancelOrder/" + userid)
+      .delete("http://localost:8000/cancelOrder/" + userid)
       .then((response) => {
         this.setState({ order: response.data });
       })

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 const ResetPasswordPatient = () => {
   const [formData, setFormData] = useState({
@@ -17,16 +18,7 @@ const ResetPasswordPatient = () => {
 
     try {
       console.log(formData);
-      const response = await fetch(
-        "http://localhost:8000/pharma/patient/verify",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await axios.put("http://localhost:8000/verify");
 
       // Handle the response as needed
       console.log(response);
@@ -45,7 +37,7 @@ const ResetPasswordPatient = () => {
     event.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8000/pharma/patient/requestOTP",
+        "http://localhost:8000/requestOTP",
         {
           method: "POST",
           headers: {
@@ -84,7 +76,7 @@ const ResetPasswordPatient = () => {
         <button type="submit">Request OTP</button>
       </form>
       <br />
-      <form action="/changePW" onSubmit={handleSubmit}>
+      <form action="/verify" onSubmit={handleSubmit}>
         <label>
           OTP:
           <input

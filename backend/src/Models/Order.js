@@ -21,12 +21,11 @@ const OrderSchema = new Schema({
   ],
   bill: {
     type: Number,
-    required: true,
+   
   },
 
   status: {
     type: String,
-    required: true,
   },
 });
 

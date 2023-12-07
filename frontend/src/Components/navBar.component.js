@@ -30,20 +30,20 @@ export default class Navbar extends Component {
             </li>
 
             <li className="navbar-item">
-              <Link to="/pharma/pharmacist/viewMedicine" className="nav-link">
+              <Link to="/pharma/patient/viewMedicine" className="nav-link">
                 Search
               </Link>
             </li>
             <li className="navbar-item">
               <Link
-                to="/pharma/pharmacist/viewMedicine/filter"
+                to="/pharma/patient/viewMedicine/filter"
                 className="nav-link"
               >
                 Filter Uses
               </Link>
             </li>
             <li className="navbar-item">
-              <Link to="/pharma/patient/viewOrder/:userid" className="nav-link">
+              <Link to="/viewOrder/:userid" className="nav-link">
                 View Order
               </Link>
             </li>

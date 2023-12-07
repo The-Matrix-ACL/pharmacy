@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const pharmacistRequestSchema = new mongoose.Schema(
+const pharmacistRequestSchema = new Schema(
   {
     username: {
       type: String,

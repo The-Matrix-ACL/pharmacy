@@ -24,7 +24,7 @@ function AdminPharmacistRequests() {
 
   const handleDeleteRequest = async (pharmacistId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/deletePharmacist/${pharmacistId}`);
+      const response = await axios.delete(`http://localhost:8000/deletePharmacist/${pharmacistId}`);
       if (response.status === 204) {
         // Remove the deleted pharmacist request from the list
         setPharmacistRequests((requests) => requests.filter((request) => request._id !== pharmacistId));
@@ -38,7 +38,7 @@ function AdminPharmacistRequests() {
 
   const handleAcceptRequest = async (pharmacistId) => {
     try {
-      const response = await axios.post(`http://localhost:5000/pharmacistRequest/${pharmacistId}`, {
+      const response = await axios.post(`http://localhost:8000/pharmacistRequest/${pharmacistId}`, {
         decision: 'approved',
       });
       if (response.status === 200) {
