@@ -30,15 +30,18 @@ import ResetPasswordPatient from "./pages/resetPasswordPatient";
 import ResetPasswordAdmin from "./pages/resetPasswordAdmin";
 import ResetPasswordPharmacist from "./pages/resetPasswordPharmacist";
 import Order from "./Components/order-view.components";
+import Home from "./Components/Home";
 
 function App() {
   return (
     <Router>
       <div className="container">
-      <Navbar />
+     
         <br />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+
           <Route path="/pharma/pharmacist/addMed" element={<AddMed />} />
           <Route path="/AvailableMedicine" element={<Medications />} />
           <Route path="getCart/:id" element={<Cart />} />

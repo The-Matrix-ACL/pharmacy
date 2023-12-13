@@ -1,0 +1,190 @@
+.welcome-page {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.welcome-page .div {
+  background-color: #ffffff;
+  height: 1024px;
+  overflow: hidden;
+  position: relative;
+  width: 1440px;
+}
+
+.welcome-page .overlap {
+  height: 131px;
+  left: -53px;
+  position: absolute;
+  top: 937px;
+  width: 1493px;
+}
+
+.welcome-page .nav-bar {
+  height: 131px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1493px;
+}
+
+.welcome-page .overlap-group {
+  height: 89px;
+  left: 53px;
+  position: relative;
+  width: 1440px;
+}
+
+.welcome-page .rectangle {
+  background-color: #4584ff;
+  height: 70px;
+  left: 0;
+  position: absolute;
+  top: 19px;
+  width: 1440px;
+}
+
+.welcome-page .acllogo {
+  height: 87px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 218px;
+}
+
+.welcome-page .text-wrapper {
+  color: #ffffff;
+  font-family: "Josefin Sans-Regular", Helvetica;
+  font-size: 25px;
+  font-weight: 400;
+  left: 563px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 46px;
+  white-space: nowrap;
+}
+
+.welcome-page .clinic-btn {
+  height: 134px;
+  left: 267px;
+  position: absolute;
+  top: 651px;
+  width: 373px;
+}
+
+.welcome-page .overlap-2 {
+  height: 134px;
+  position: relative;
+  width: 371px;
+}
+
+.welcome-page .rectangle-2 {
+  background-color: #4584ff;
+  height: 126px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 371px;
+}
+
+.welcome-page .CLINIC {
+  color: #ffffff;
+  font-family: "Josefin Sans-Regular", Helvetica;
+  font-size: 60px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 7px;
+  width: 371px;
+}
+
+.welcome-page .pharma-btn {
+  height: 133px;
+  left: 802px;
+  position: absolute;
+  top: 651px;
+  width: 373px;
+}
+
+.welcome-page .overlap-3 {
+  height: 133px;
+  position: relative;
+  width: 371px;
+}
+
+.welcome-page .PHARMACY {
+  color: #ffffff;
+  font-family: "Josefin Sans-Regular", Helvetica;
+  font-size: 60px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+  width: 371px;
+}
+
+.welcome-page .overlap-4 {
+  height: 547px;
+  left: 0;
+  position: absolute;
+  top: -100px;
+  width: 1440px;
+}
+
+.welcome-page .p {
+  color: #000000;
+  font-family: "Josefin Sans-Regular", Helvetica;
+  font-size: 60px;
+  font-weight: 400;
+  left: 267px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 328px;
+  width: 906px;
+}
+
+.welcome-page .overlap-wrapper {
+  height: 446px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1440px;
+}
+
+.welcome-page .overlap-5 {
+  height: 346px;
+  position: relative;
+  top: 100px;
+}
+
+.welcome-page .rectangle-3 {
+  background-color: #4584ff;
+  height: 175px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1440px;
+}
+
+.welcome-page .img {
+  height: 346px;
+  left: 258px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 923px;
+}
+
