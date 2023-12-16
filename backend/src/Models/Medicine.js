@@ -37,7 +37,7 @@ const medicineSchema = new Schema(
       required: true,
     },
     picture: {
-      type: File,
+      type: String,
       required: true,
     },
     amount: {
@@ -48,7 +48,18 @@ const medicineSchema = new Schema(
       type: Number,
       required: true,
     },
+    prescriped: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    archived: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
+
   { timestamps: true }
 );
 

@@ -2,7 +2,7 @@ const express = require("express");
 ///const bcrypt = require("bcrypt");
 const router = express.Router();
 const Patient = require("../Models/Patient.js");
-const AddressModel = require("../Models/DeliveryAddress.js")
+const AddressModel = require("../Models/DeliveryAddress.js");
 
 // Registration endpoint
 router.post("/register", async (req, res) => {
@@ -43,13 +43,14 @@ router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
   console.log(name);
   try {
-    const med = await medicineModel.find({ name: name });
+    const med = await medicineModel.find({ archived: false });
     if (med.length === 0 || !med) {
       return res
         .status(404)
         .json({ message: "No medicine with this name on record" });
     }
-    res.status(200).json(med);
+    const results = await med.find({ name: name });
+    res.status(200).json(results);
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
@@ -59,42 +60,42 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
   const { usage } = req.params;
   console.log(usage);
   try {
-    const med = await medicineModel.find({ usage: usage });
+    const med = await medicineModel.find({ archived: false });
     if (med.length === 0 || !med) {
       return res
         .status(404)
-        .json({ message: "No medicine with this use on record" });
+        .json({ message: "No medicine with this name on record" });
     }
-    res.status(200).json(med);
+    const results = await med.find({ usage: usage });
+    res.status(200).json(results);
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
   }
 });
 
-router.get ("/AvailableMedicine" , async (req, res) => {
-  const Medications = await medicineModel.find();
-  
-  try{
-  res.status(200).json(Medications);
- }
- catch(error) {
+router.get("/AvailableMedicine", async (req, res) => {
+  const med = await medicineModel.find({ archived: false });
+  const results = await med.find();
+  res.status(200).json(results);
+  try {
+    res.status(200).json(Medications);
+  } catch (error) {
     res.status(400).json({ error: error.message });
   }
+});
 
- });
-
-router.post("/AddAddress/:userid", async(req,res)=>{
+router.post("/AddAddress/:userid", async (req, res) => {
   const Id = req.params.userid;
 
-   const {
+  const {
     userId,
     addressTitle,
     governate,
     city,
     street,
     buildingNumber,
-    apartmentNumber
+    apartmentNumber,
   } = req.body;
 
   try {
@@ -105,12 +106,12 @@ router.post("/AddAddress/:userid", async(req,res)=>{
       city,
       street,
       buildingNumber,
-      apartmentNumber
+      apartmentNumber,
     });
     res.status(200).json(newAddress);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-})
+});
 
 module.exports = router;
