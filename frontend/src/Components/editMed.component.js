@@ -15,8 +15,6 @@ class EditMed extends Component {
       picture: "",
       amount: 0,
       sales: 0,
-      perscriped: false,
-      archive: false,
     };
 
     this.onChangeName = this.onChangeName.bind(this);
@@ -27,8 +25,6 @@ class EditMed extends Component {
     this.onChangePicture = this.onChangePicture.bind(this);
     this.onChangeAmount = this.onChangeAmount.bind(this);
     this.onChangeSales = this.onChangeSales.bind(this);
-    this.onChangeArch = this.onChangeAmount.bind(this);
-    this.onChangePres = this.onChangeAmount.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -47,8 +43,6 @@ class EditMed extends Component {
           picture: response.data.picture,
           amount: response.data.amount,
           sales: response.data.sales,
-          perscriped: response.data.perscriped,
-          archive: response.date.archive,
         });
       })
       .catch(function (error) {
@@ -102,12 +96,6 @@ class EditMed extends Component {
       sales: e.target.value,
     });
   }
-  onChangePres(e) {
-    this.setState({ perscriped: e.target.value });
-  }
-  onChangeArch(e) {
-    this.setState({ archive: e.target.value });
-  }
 
   onSubmit(e) {
     e.preventDefault();
@@ -121,8 +109,6 @@ class EditMed extends Component {
       picture: this.state.picture,
       amount: this.state.amount,
       sales: this.state.sales,
-      perscriped: this.state.perscriped,
-      archive: this.state.archive,
     };
 
     console.log(medicine);
@@ -226,23 +212,6 @@ class EditMed extends Component {
               value={this.state.sales}
               onChange={this.onChangeSales}
             />
-          </div>
-
-          <div className="form-control">
-            <input
-              type="checkbox"
-              name="prescriped"
-              value="true"
-              onChange={this.onChangePres}
-            />
-            <label for="prescriped"> Prescription needed </label>
-            <input
-              type="checkbox"
-              name="archived"
-              value="true"
-              onChange={this.onChangeArch}
-            />
-            <label for="prescriped"> Archive </label>
           </div>
 
           <div className="form-group">

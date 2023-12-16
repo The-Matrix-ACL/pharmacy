@@ -8,7 +8,7 @@ const medicineModel = require("../Models/Medicine");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 let path = require("path");
-let User = require("../models/User.js");
+
 const nodemailer = require("nodemailer");
 const OTP = require("../Models/OTP.js");
 var cors = require("cors");
@@ -126,7 +126,6 @@ router.post("/AvailableMedicinePharmacist/editMed/:id", async (req, res) => {
     picture,
     amount,
     sales,
-    prescriped,
   } = req.body;
 
   try {
@@ -141,10 +140,25 @@ router.post("/AvailableMedicinePharmacist/editMed/:id", async (req, res) => {
         picture,
         amount,
         sales,
-        prescriped,
       }
     );
     res.status(200).json(med);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post("/AvailableMedicinePharmacist/archiveMed/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const med = await medicineModel.findOne({ _id: id });
+    const arch = med.archived;
+    const result = await medicineModel.findByIdAndUpdate(
+      { _id: id },
+      { archived: !arch }
+    );
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
