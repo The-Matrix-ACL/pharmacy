@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const pharmacistRequestSchema = new Schema(
+const pharmacistRequestSchema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -41,6 +40,10 @@ const pharmacistRequestSchema = new Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    WalletCredit: {
+      type: Number,
+      default: 0, // Set an initial value, change as needed
+    },
   },
   { timestamps: true }
 );
@@ -49,5 +52,17 @@ const PharmacistRequest = mongoose.model(
   "PharmacistRequest",
   pharmacistRequestSchema
 );
+
+// Update existing documents to include the 'WalletCredit' field
+PharmacistRequest.updateMany(
+  { WalletCredit: { $exists: false } },
+  { $set: { WalletCredit: 0 } }
+)
+  .then((result) => {
+    console.log("Documents updated successfully:", result);
+  })
+  .catch((err) => {
+    console.error("Error updating documents:", err);
+  });
 
 module.exports = PharmacistRequest;

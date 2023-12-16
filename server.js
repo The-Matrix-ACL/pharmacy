@@ -7,6 +7,8 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+const http = require("http"); // Add this line
+const { Server } = require("socket.io");
 //const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 const router = express.Router();
@@ -64,6 +66,30 @@ const port = process.env.PORT || "8000";
 mongoose.connect(MongoURI).then(() => {
   console.log("MongoDB is now connected!");
   // Starting server
+  const server = http.createServer(app);
+    const io = new Server(server, {
+      cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+      },
+    });
+
+    io.on("connection", (socket) => {
+      console.log(`User Connected: ${socket.id}`);
+
+      socket.on("join_room", (data) => {
+        socket.join(data);
+      });
+
+      socket.on("send_message", (data) => {
+        socket.to(data.room).emit("receive_message", data);
+      });
+    });
+
+    server.listen(3001, () => {
+      console.log("SERVER IS RUNNING");
+    });
+
   app.listen(port, () => {
     console.log(`Listening to requests on http://localhost:${port}`);
   });
@@ -79,3 +105,19 @@ app.delete("/deletePatient/:id", deletePatient);
 
 app.get("/viewPharmacistRequests", viewPharmacistRequests);
 app.get("/viewpatients", viewPatients);
+app.post('/payment', async (req, res) => {
+  try {
+      const { amount, token } = req.body;
+
+      const charge = await stripe.charges.create({
+          amount: amount, // Amount in cents
+          currency: 'usd',
+          source: token,
+          description: 'Test payment',
+      });
+
+      res.status(200).send({ success: charge });
+  } catch (error) {
+      res.status(500).send({ error: error.message });
+  }
+})
