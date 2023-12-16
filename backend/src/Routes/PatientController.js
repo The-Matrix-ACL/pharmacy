@@ -5,6 +5,8 @@ const Patient = require("../Models/Patient.js");
 const AddressModel = require("../Models/DeliveryAddress.js");
 const nodemailer = require("nodemailer");
 const OTP = require("../Models/OTP.js");
+const medicineModel = require("../Models/Medicine"); 
+
 // Registration endpoint
 router.post("/addPatient", async (req, res) => {
   console.log("a7a");
@@ -93,6 +95,7 @@ router.post("/changepassword/:username", async (req, res) => {
 const Address = require("../Models/DeliveryAddress");
 
 const mongoose = require("mongoose");
+
 const ObjectId = mongoose.Types.ObjectId;
 
 router.post("/addAddress/:username", async (req, res) => {
@@ -424,6 +427,42 @@ const sendEmail = async (mailOption) => {
     throw error;
   }
 };
+
+router.post ("/getWalletCredit",  async (req, res) => {
+  const username = req.body.username; // Retrieve username from request body
+  try {
+      console.log("start");
+      console.log(username);
+      console.log("end");
+      const user = await Patient.findOne({username }); // Use the retrieved username
+      console.log(user)
+      await res.status(200).json(user);
+  } catch (err) {
+      console.log(err);
+  }
+});
+
+router.post ("/payWithWallet" , async (req, res) => {
+  try {
+    const { amount} = req.body; 
+    const username = req.body.username;
+    const user = await Patient.findOne({username});
+
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      if (user.WalletCredit < amount) {
+          return res.status(400).json({ message: "Insufficient wallet credit" });
+      }
+      user.WalletCredit -= amount;
+      const updatedUser = await user.save();
+      res.status(200).json({success: true,newWalletCredit: updatedUser.WalletCredit});
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "An error occurred while processing your request" });
+  }
+})
 
 module.exports = router;
 //module.exports = {  filterPatients,changepassword,addDeliveryAddress,viewAddress,chooseMainAddress};

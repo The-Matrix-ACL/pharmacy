@@ -21,11 +21,12 @@ router.post("/checkoutOrder/:userid", async (req, res) => {
     const order = await Order.create({
       userId,
       items: cart.medications,
-     // bill: cart.bill,
-     //status: 'succsessful',
+      bill: cart.bill,
+     status: 'Placed',
     });
-    const data = await Cart.findOneAndDelete({ userid: userId });
-    //return res.status(201).send(order);
+
+    await Cart.findOneAndDelete({ userId: userId });
+    return res.status(201).send(order);
   } else {
     res.status(500).send("You do not have items in cart");
   }
@@ -51,9 +52,10 @@ router.post("/checkoutOrder/payment/:userid", async (req, res) => {
 
 router.get("/viewOrder/:userid", async (req, res) => {
   const userId = req.params.userid;
+  console.log("ugh");
 
   // const user = await Patient.findById(userId);
-  const order = Order.findOne({ userId: userId });
+  const order = Order.find({ userId: userId });
   if (order) {
     return res.status(200).json(order);
   } else {

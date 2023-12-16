@@ -8,7 +8,8 @@ const Order = (props) => (
     <td>{props.order.items[3]}</td>
   </tr>
 );
-const userid = localStorage.getItem("userId");
+const userid = localStorage.getItem('userId')
+console.log(localStorage)
 
 export default class ViewOrder extends Component {
   constructor(props) {
@@ -18,8 +19,9 @@ export default class ViewOrder extends Component {
   }
 
   componentDidMount() {
+    
     axios
-      .get("https://localhost:8000/viewOrder/" + userid)
+      .get("https://localhost:8000/viewOrder/" + userid )
       .then((response) => {
         this.setState({ order: response.data });
       })

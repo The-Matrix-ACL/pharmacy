@@ -37,7 +37,7 @@ import { useParams } from 'react-router-dom';
 
     componentDidMount() {
         const{id} = this.props.params;
-        axios.get('http://localhost:8000/pharma/pharmacist/viewMedicineById/'+ id)
+        axios.get('http://localhost:8000/viewMedicineById/'+ id)
           .then(response => {
             this.setState({
               name : response.data.name,
@@ -123,7 +123,7 @@ import { useParams } from 'react-router-dom';
 
       const{id} = this.props.params;
   
-      axios.post('http://localhost:8000/pharma/pharmacist/AvailableMedicine/editMed/'+ id, medicine)
+      axios.post('http://localhost:8000/AvailableMedicinePharmacist/editMed/'+ id, medicine)
         .then(res => console.log(res.data));
     }
 

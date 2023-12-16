@@ -4,14 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import acllogo from "/Users/shaymaa/Desktop/ACL/pharmacy/frontend/src/Components/acllogo.png";
 
 
-function Medications() {
+function MedicationsPharmacist() {
   const [Meds, setMeds] = useState([]);
 
   useEffect(() => {
     // Fetch pharmacist requests when the component mounts
     async function fetchMeds() {
       try {
-        const response = await axios.get('http://localhost:8000/AvailableMedicine');
+        const response = await axios.get('http://localhost:8000/AvailableMedicinePharmacist');
         if (response.status === 200) {
           setMeds(response.data);
         } else {
@@ -25,11 +25,11 @@ function Medications() {
     fetchMeds();
   }, []);
 
-  const handleAddToCart = async (userId,medId) => {
+  const handleEdit = async (medId) => {
     try {
 
-     await axios.post(`http://localhost:8000/AddToCart/${userId}/${medId}`);
-     window.alert("Item Added")
+     await axios.post(`http://localhost:8000/AvailableMedicinePharmacist/editMed/${medId}`);
+     window.location.replace(`http://localhost:8000/AvailableMedicinePharmacist/editMed/${medId}`);
      
     } catch (error) {
       console.error("Error :", error);
@@ -93,7 +93,8 @@ console.log(localStorage)
                   <th style={{border: "3px #4685FF solid",height: "70px", padding: "15px",
   textAlign: "left", }}>Sales</th>
               <th style={{border: "3px #4685FF solid",height: "70px", padding: "15px",
-  textAlign: "left", }}>Add to Cart</th>
+  textAlign: "left", }}>Edit</th>
+  
           </tr>
         </thead >
         <tbody>
@@ -123,9 +124,9 @@ console.log(localStorage)
   textAlign: "left", }}>{Meds.sales}</td>
               <td style={{border: "3px #4685FF solid",height: "70px", padding: "15px",
   textAlign: "left", }}>
-                <button style = {{background: '#4685FF',
-            color: 'white',}} onClick={() => handleAddToCart(userId, Meds._id)}>
-                  Add to cart
+                <button  style = {{background: '#4685FF',
+            color: 'white',}} onClick={() => handleEdit(Meds._id)}>
+                  Edit
                 </button>
               </td>
             </tr>
@@ -139,4 +140,4 @@ console.log(localStorage)
 
 }
 
-export default Medications;
+export default MedicationsPharmacist;

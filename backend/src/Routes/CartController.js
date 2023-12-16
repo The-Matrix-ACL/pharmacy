@@ -51,7 +51,7 @@ router.post('/addToCart/:userid/:medid', async (req,res) => {
             else {
                 cart.medications.push({ medId, name, quantity, price });
             }
-            //cart.bill += quantity*price;
+            cart.bill += price;
             cart = await cart.save();
             return res.status(201).send(cart);
         }
@@ -60,7 +60,7 @@ router.post('/addToCart/:userid/:medid', async (req,res) => {
             const newCart = await Cart.create({
                 userId,
                 medications: [{ medId, name, quantity, price }],
-               // bill: quantity*price
+                bill: price
             });
             return res.status(201).send(newCart);
         }       
