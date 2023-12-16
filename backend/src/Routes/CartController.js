@@ -1,14 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Cart = require('../Models/Cart.js');
-const { requireAuth } = require('../Middleware/Auth.js');
 const Medicine = require('../Models/Medicine');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 const mongoose = require('mongoose');
 
 //add back requireAuth
-router.get('/getCart/:id', async (req,res) => {
+router.get('/patient/getCart/:id', async (req,res) => {
     const userId = req.params.id;
     try{
         let cart = await Cart.findOne({userId});
@@ -28,7 +27,7 @@ router.get('/getCart/:id', async (req,res) => {
 router.post('/addToCart/:userid/:medid', async (req,res) => {
     const userId = req.params.userid;
     const medId = req.params.medid;
-    const { quantity } = req.body;
+    const { quantity } = 1;
 
     try{
         let cart = await Cart.findOne({userId: userId});
@@ -52,7 +51,7 @@ router.post('/addToCart/:userid/:medid', async (req,res) => {
             else {
                 cart.medications.push({ medId, name, quantity, price });
             }
-            cart.bill += quantity*price;
+            cart.bill += price;
             cart = await cart.save();
             return res.status(201).send(cart);
         }
@@ -61,7 +60,7 @@ router.post('/addToCart/:userid/:medid', async (req,res) => {
             const newCart = await Cart.create({
                 userId,
                 medications: [{ medId, name, quantity, price }],
-                bill: quantity*price
+                bill: price
             });
             return res.status(201).send(newCart);
         }       

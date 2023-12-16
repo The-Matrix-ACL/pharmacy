@@ -1,20 +1,68 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const pharmacistSchema = new Schema({
-  username: String,
-  name: String,
-  email: String,
-  password: String,
-  dateOfBirth: Date,
-  hourlyRate: Number,
-  affiliation: String,
-  educationalBackground: String,
-  /*id: File,
-  degree: File,
-  license: File,*/
-});
+const pharmacistRequestSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    dateOfBirth: {
+      type: Date,
+      required: true,
+    },
+    hourlyRate: {
+      type: Number,
+      required: true,
+    },
+    affiliation: {
+      type: String,
+      required: true,
+    },
+    educationalBackground: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+    WalletCredit: {
+      type: Number,
+      default: 0, // Set an initial value, change as needed
+    },
+  },
+  { timestamps: true }
+);
 
-const Pharmacist = mongoose.model("Pharmacist", pharmacistSchema);
+const PharmacistRequest = mongoose.model(
+  "PharmacistRequest",
+  pharmacistRequestSchema
+);
 
-module.exports = Pharmacist;
+// Update existing documents to include the 'WalletCredit' field
+PharmacistRequest.updateMany(
+  { WalletCredit: { $exists: false } },
+  { $set: { WalletCredit: 0 } }
+)
+  .then((result) => {
+    console.log("Documents updated successfully:", result);
+  })
+  .catch((err) => {
+    console.error("Error updating documents:", err);
+  });
+
+module.exports = PharmacistRequest;

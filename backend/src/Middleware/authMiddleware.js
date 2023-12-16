@@ -5,7 +5,7 @@ const requireAuth = (req, res, next) => {
     
   // check json web token exists & is verified
   if (token) {
-    jwt.verify(token, 'your-secret-key', (err, decodedToken) => {
+    jwt.verify(token, 'supersecret', (err, decodedToken) => {
       if (err) {
         // console.log('You are not logged in.');
         // res send status 401 you are not logged in

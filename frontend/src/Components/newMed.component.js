@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import acllogo from "/Users/shaymaa/Desktop/ACL/pharmacy/frontend/src/Components/acllogo.png";
+
 
 export default class AddMed extends Component {
   constructor(props) {
@@ -92,109 +94,102 @@ export default class AddMed extends Component {
     console.log(medicine);
 
     axios
-      .post("http://localhost:8000/pharma/pharmacist/addMed", medicine)
+      .post("http://localhost:8000/addMed", medicine)
       .then((res) => console.log(res.data));
   }
 
   render() {
     return (
-      <div>
-        <h3>Add new medication</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Name: </label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              value={this.state.name}
-              onChange={this.onChangeName}
-            />
+      <div className="PharmaPharmacistAddMedPage" style={{width: 1440, height: 1793, position: 'relative', background: 'white'}}>
+      <div className="Botbar" style={{width: 1493, height: 131, left: -53, top: 1704, position: 'absolute'}}>
+        <div className="Rectangle1" style={{width: 1440, height: 70, left: 53, top: 19, position: 'absolute', background: '#4685FF'}} />
+        <img className="Acllogo1" style={{width: 271, height: 131, left: 0, top: 0, position: 'absolute'}} src={acllogo} />
+        <div className="El7a2niClinicsAndPharmacy2023" style={{left: 563, top: 47, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 25, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>© el7a2ni clinics and pharmacy 2023</div>
+      </div>
+      <div className="Navbar" style={{width: 1683, height: 446, left: -243, top: -89, position: 'absolute'}}>
+        <div className="Rectangle1" style={{width: 1440, height: 175, left: 243, top: 89, position: 'absolute', background: '#4685FF'}} />
+        <div className="Logo" style={{width: 1334, height: 446, left: 0, top: 0, position: 'absolute'}}>
+          <img className="Acllogo1" style={{width: 923, height: 446, left: 0, top: 0, position: 'absolute'}} src={acllogo} />
+          <div className="PharmacyPharmacist" style={{width: 676, height: 59, left: 658, top: 193, position: 'absolute', color: 'white', fontSize: 60, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Pharmacy - Pharmacist</div>
+          <div className="Logobtn" style={{width: 719, height: 175, left: 243, top: 89, position: 'absolute'}} />
+        </div>
+      </div>
+      <div className="Addmed" style={{width: 507, height: 1323, left: 455, top: 229, position: 'absolute'}}>
+        <div className="Formbounds" style={{width: 507, height: 1323, left: 0, top: 0, position: 'absolute'}}>
+          <div className="Login" style={{width: 460.96, height: 59, left: 20, top: 1264, position: 'absolute'}}>
+            <button className="SignUp" style={{width: 449, height: 59, left: 5.96, top: 0, position: 'absolute', textAlign: 'center', background: '#4685FF', color: 'white', fontSize: 32, fontFamily: 'Josefin Sans', borderRadius: 18,  fontWeight: '400', wordWrap: 'break-word'}} onClick={this.onSubmit}>Add New Medicine</button>
           </div>
-
-          <div className="form-group">
-            <label>Price: </label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              value={this.state.price}
-              onChange={this.onChangePrice}
+          <div className="Line2" style={{width: 500, height: 0, left: 7, top: 1228, position: 'absolute', border: '5px #4685FF solid'}}></div>
+          <div className="Line1" style={{width: 500, height: 0, left: 0, top: 47, position: 'absolute', border: '5px #4685FF solid'}}></div>
+          <div className="AddNewMedicine" style={{width: 341, height: 36, left: 156, top: 0, position: 'absolute', textAlign: 'right', color: '#4685FF', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Add New Medicine</div>
+        </div>
+        <div className="Rectangle5" style={{width: 473, height: 83, left: 13, top: 1113, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}} />
+        <div className="Hourlyrate" style={{width: 146, height: 83, left: 27, top: 960, position: 'absolute'}}>
+          <div className="Rectangle5" style={{width: 146, height: 83, left: 0, top: 0, position: 'absolute', background: '#4685FF', borderRadius: 20, border: '7px #4685FF solid'}} />
+          <div className="Upload" style={{width: 139.21, height: 73, left: 3.70, top: 10, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Upload</div>
+        </div>
+        <div className="Rectangle5" style={{width: 473, height: 83, left: 20, top: 621, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}} />
+        <input
+               type="text"
+               required
+               className="form-control"
+               value={this.state.usage}
+               onChange={this.onChangeUsage}
+              style={{width: 473, height: 83, left: 20, top: 621, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}}
             />
-          </div>
-
-          <div className="form-group">
-            <label>Ingredients: </label>
-            <input
+        <div className="Rectangle5" style={{width: 473, height: 83, left: 20, top: 451, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}} />
+        <input
               type="text"
               required
               className="form-control"
               value={this.state.ingredients}
               onChange={this.onChangeIngredients}
+              style={{width: 473, height: 83, left: 20, top: 451, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}}
             />
-          </div>
-
-          <div className="form-group">
-            <label>Usage: </label>
-            <input
+        <div className="Rectangle5" style={{width: 473, height: 83, left: 13, top: 305, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}} />
+        <input
               type="text"
               required
               className="form-control"
-              value={this.state.usage}
-              onChange={this.onChangeUsage}
+              value={this.state.price}
+              onChange={this.onChangePrice}
+              style={{width: 473, height: 83, left: 13, top: 305, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}}
             />
-          </div>
-
-          <div className="form-group">
-            <label>Description: </label>
-            <input
+        <div className="Rectangle5" style={{width: 473, height: 83, left: 10, top: 159, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}} />
+        <input
+              type="text"
+              required
+              className="form-control"
+              value={this.state.name}
+              onChange={this.onChangeName}
+              style={{width: 473, height: 83, left: 10, top: 159, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}}
+              />
+             
+        <div className="Name" style={{width: 256, height: 28, left: 22, top: 114, position: 'absolute', color: 'rgba(69.91, 132.84, 255, 0.50)', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Name</div>
+        <div className="Price" style={{width: 171, height: 35, left: 30, top: 262, position: 'absolute', color: 'rgba(69.91, 132.84, 255, 0.50)', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Price</div>
+        <div className="Ingredients" style={{width: 315, height: 24, left: 27, top: 410, position: 'absolute', color: 'rgba(69.91, 132.84, 255, 0.50)', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Ingredients</div>
+        <div className="Usage" style={{width: 173, height: 26, left: 33, top: 564, position: 'absolute', color: 'rgba(69.91, 132.84, 255, 0.50)', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Usage</div>
+        <div className="Rectangle5" style={{width: 473, height: 83, left: 20, top: 796, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}} />
+        <input
               type="text"
               required
               className="form-control"
               value={this.state.description}
               onChange={this.onChangeDescription}
+              style={{width: 473, height: 83, left: 20, top: 796, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}}
             />
-          </div>
-
-          <div className="form-group">
-            <label>Picture: </label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              value={this.state.picture}
-              onChange={this.onChangePicture}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Amount: </label>
-            <input
+        <div className="Description" style={{width: 273, height: 26, left: 33, top: 739, position: 'absolute', color: 'rgba(69.91, 132.84, 255, 0.50)', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Description</div>
+        <div className="Picture" style={{width: 215, height: 29, left: 33, top: 907, position: 'absolute', color: 'rgba(69.91, 132.84, 255, 0.50)', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Picture</div>
+        <div className="Amount" style={{width: 353, height: 18, left: 38, top: 1076, position: 'absolute', color: 'rgba(69.91, 132.84, 255, 0.50)', fontSize: 36, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Amount</div>
+        <input
               type="text"
               className="form-control"
               value={this.state.amount}
               onChange={this.onChangeAmount}
+              style={{width: 473, height: 83, left: 13, top: 1113, position: 'absolute', background: 'white', borderRadius: 20, border: '7px #4685FF solid'}}
             />
-          </div>
-          <div className="form-group">
-            <label>Sales: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.sales}
-              onChange={this.onChangeSales}
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              type="submit"
-              value="Add medication"
-              className="btn btn-primary"
-            />
-          </div>
-        </form>
       </div>
+    </div>
     );
   }
 }

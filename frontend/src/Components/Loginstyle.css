@@ -1,0 +1,348 @@
+.pharma-login-page,
+.pharma-login-page * {
+  box-sizing: border-box;
+}
+.pharma-login-page {
+  background: #ffffff;
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+  overflow: hidden;
+}
+.bot-bar {
+  position: absolute;
+  inset: 0;
+}
+.rectangle-1 {
+  background: #4685ff;
+  width: 1440px;
+  height: 70px;
+  position: absolute;
+  left: 0px;
+  top: 956px;
+}
+.acllogo-1 {
+  width: 271px;
+  height: 131px;
+  position: absolute;
+  left: -53px;
+  top: 937px;
+}
+.el-7-a-2-ni-clinics-and-pharmacy-2023 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  position: absolute;
+  left: 510px;
+  top: 984px;
+}
+.nav-bar {
+  position: absolute;
+  inset: 0;
+}
+.rectangle-12 {
+  background: #4685ff;
+  width: 1440px;
+  height: 175px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.logo {
+  width: 963px;
+  height: 446px;
+  position: static;
+}
+.acllogo-12 {
+  width: 923px;
+  height: 446px;
+  position: absolute;
+  left: -243px;
+  top: -89px;
+}
+.pharmacy {
+  color: #ffffff;
+  text-align: center;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 60px;
+  font-weight: 400;
+  position: absolute;
+  left: 403px;
+  top: 89px;
+  width: 317px;
+  height: 59px;
+}
+.logo-btn {
+  width: 719px;
+  height: 175px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.login {
+  width: 315px;
+  height: 61px;
+  position: static;
+}
+.rectangle-4 {
+  background: #ffffff;
+  border-radius: 18px;
+  width: 310.26px;
+  height: 61px;
+  position: absolute;
+  left: 1112.74px;
+  top: 56px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.sign-up {
+  color: #4685ff;
+  text-align: center;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 1108px;
+  top: 68.41px;
+  width: 315px;
+  height: 33.08px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login2 {
+  position: absolute;
+  inset: 0;
+}
+.forgot-password {
+  width: 311px;
+  height: 59px;
+  position: static;
+}
+.rectangle-42 {
+  background: #4685ff;
+  border-radius: 18px;
+  width: 311px;
+  height: 59px;
+  position: absolute;
+  left: 666.02px;
+  top: 694px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.rectangle-52 input[type="username"] {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px; /* Adjust padding as needed */
+  }
+
+.sign-up2 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 676.02px;
+  top: 694px;
+  width: 293px;
+  height: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login3 {
+  width: 133px;
+  height: 59px;
+  position: static;
+}
+.rectangle-43 {
+  background: #4685ff;
+  border-radius: 18px;
+  width: 131px;
+  height: 59px;
+  position: absolute;
+  left: 516.02px;
+  top: 694px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.rectangle-43 button {
+    background: #4685ff;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #4685ff;
+    border-width: 7px;
+    width: 100%;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-family: "JosefinSans-Regular", sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+  }
+
+
+.sign-up3 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 514.02px;
+  top: 706px;
+  width: 133px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-bounds {
+  width: 500.02px;
+  height: 380px;
+  position: static;
+}
+.line-1 {
+  width: 500px;
+  height: 0px;
+  position: absolute;
+  left: 501px;
+  top: 338px;
+  transform: translate(-14.43px, -14.43px);
+  overflow: visible;
+}
+.line-2 {
+  width: 500px;
+  height: 0px;
+  position: absolute;
+  left: 501.02px;
+  top: 682px;
+  transform: translate(0px, -14.43px);
+  overflow: visible;
+}
+.log-in {
+  color: #4685ff;
+  text-align: right;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  position: absolute;
+  left: 895.02px;
+  top: 302px;
+  width: 106px;
+  height: 36px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.password {
+  width: 473px;
+  height: 83px;
+  position: static;
+}
+.rectangle-5 {
+  background: #ffffff;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #4685ff;
+  border-width: 7px;
+  width: 473px;
+  height: 83px;
+  position: absolute;
+  left: 514.02px;
+  top: 527px;
+}
+.rectangle-5 input[type="password"] {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px; /* Adjust padding as needed */
+  }
+.password2 {
+  color: rgba(70, 133, 255, 0.5);
+  text-align: left;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  position: absolute;
+  left: 526.02px;
+  top: 537px;
+  width: 451px;
+  height: 73px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.username {
+  width: 473px;
+  height: 83px;
+  position: static;
+}
+.rectangle-52 {
+  background: #ffffff;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #4685ff;
+  border-width: 7px;
+  width: 473px;
+  height: 83px;
+  position: absolute;
+  left: 514.02px;
+  top: 397px;
+}
+.username2 {
+  color: rgba(70, 133, 255, 0.5);
+  text-align: left;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  position: absolute;
+  left: 526.02px;
+  top: 407px;
+  width: 451px;
+  height: 73px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.frame-2 {
+  width: 1px;
+  height: 4px;
+  position: absolute;
+  left: 806px;
+  top: 846px;
+  overflow: hidden;
+}
+.frame-3 {
+  width: 126px;
+  height: 56px;
+  position: absolute;
+  left: 501px;
+  top: 682px;
+  overflow: hidden;
+}
+.rectangle-44 {
+  background: #ffffff;
+  border-radius: 18px;
+  width: 310.26px;
+  height: 61px;
+  position: absolute;
+  left: 774.74px;
+  top: 58px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.sign-up4 {
+  color: #4685ff;
+  text-align: center;
+  font-family: "JosefinSans-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 770px;
+  top: 70.41px;
+  width: 315px;
+  height: 33.08px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

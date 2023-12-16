@@ -7,26 +7,34 @@ const Order = require("../Models/Order");
 
 //const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
-const { requireAuth } = require("../Middleware/Auth.js");
+const { requireAuth } = require("../Middleware/authMiddleware.js");
 
-router.post("/checkoutOrder/:cartid/:userid", async (req, res) => {
-  const cartId = req.params.cartid;
+router.post("/checkoutOrder/:userid", async (req, res) => {
   const userId = req.params.userid;
 
   const status = req.body.status;
 
-  const cart = await Cart.findById(cartId);
+  const cart = await Cart.findOne({ userId: userId });
   const user = await Patient.findById(userId);
 
   if (cart) {
     const order = await Order.create({
       userId,
       items: cart.medications,
-      bill: cart.bill,
-      status: status,
+<<<<<<< HEAD
+     // bill: cart.bill,
+     //status: 'succsessful',
     });
-    const data = await Cart.findByIdAndDelete(cartId);
+    const data = await Cart.findOneAndDelete({ userid: userId });
+    //return res.status(201).send(order);
+=======
+      bill: cart.bill,
+     status: 'Placed',
+    });
+
+    await Cart.findOneAndDelete({ userId: userId });
     return res.status(201).send(order);
+>>>>>>> a5af7dedd4b8f31bdca67dcdd59eba158698e59e
   } else {
     res.status(500).send("You do not have items in cart");
   }
@@ -52,9 +60,14 @@ router.post("/checkoutOrder/payment/:userid", async (req, res) => {
 
 router.get("/viewOrder/:userid", async (req, res) => {
   const userId = req.params.userid;
+  console.log("ugh");
 
   // const user = await Patient.findById(userId);
-  const order = Order.findOne({ userid: userId });
+<<<<<<< HEAD
+  const order = Order.findOne({ userId: userId });
+=======
+  const order = Order.find({ userId: userId });
+>>>>>>> a5af7dedd4b8f31bdca67dcdd59eba158698e59e
   if (order) {
     return res.status(200).json(order);
   } else {
@@ -64,7 +77,7 @@ router.get("/viewOrder/:userid", async (req, res) => {
 
 router.delete("/viewOrder/cancelOrder/:userid", async (req, res) => {
   const userId = req.params.userid;
-  const order = Order.findOne({ userid: userId });
+  const order = Order.findOne({ userId: userId });
   if (!order) {
     return res.status(404).send("No orders to delete");
   } else if (order.status.localeCompare("Delivered") != 0) {

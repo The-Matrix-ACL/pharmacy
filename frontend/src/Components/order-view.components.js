@@ -9,6 +9,7 @@ const Order = (props) => (
   </tr>
 );
 const userid = localStorage.getItem("userId");
+console.log(localStorage);
 
 export default class ViewOrder extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ export default class ViewOrder extends Component {
   }
   cancel(e) {
     axios
-      .delete("http://localost:8000/pharma/cancelOrder/" + userid)
+      .delete("http://localost:8000/cancelOrder/" + userid)
       .then((response) => {
         this.setState({ order: response.data });
       })
