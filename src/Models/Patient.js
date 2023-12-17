@@ -31,17 +31,21 @@ const patientSchema = new mongoose.Schema({
     required: true,
   },
   emergencyContactName: {
-      type: String,
-      required: true,
-    },
+    type: String,
+    required: true,
+  },
   emergencyMobileNumber: {
-     type: String,
-     required: true,
-   },
+    type: String,
+    required: true,
+  },
   relation: {
-      type: String,
-      required: true,
-    },
+    type: String,
+    required: true,
+  },
+  WalletCredit: {
+    type: Number,
+    default: 0, // Set an initial value, change as needed
+  },
   addresses: [{
     addressTitle: {
       type: String,
@@ -72,8 +76,11 @@ const patientSchema = new mongoose.Schema({
 
 const Patient = mongoose.model('Patient', patientSchema);
 
-// Update existing documents to include the 'addresses' field
-Patient.updateMany({ addresses: { $exists: false } }, { $set: { addresses: [] } })
+// Update existing documents to include the 'addresses' and 'walletCredit' fields
+Patient.updateMany(
+  { $or: [{ addresses: { $exists: false } }, { WalletCredit: { $exists: false } }] },
+  { $set: { addresses: [], WalletCredit: 0 } }
+)
   .then((result) => {
     console.log('Documents updated successfully:', result);
   })
