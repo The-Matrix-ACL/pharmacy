@@ -30,13 +30,10 @@ router.post("/addToCart/:userid/:medid", async (req, res) => {
   try {
     let cart = await Cart.findOne({ userId: userId });
     const med = await Medicine.findById(medId);
-
-    if (med.prescribed) {
-      //TODO check 2l rosheta?
-    }
     if (!med) {
       res.status(404).send("Item not found!");
     }
+
     const price = med.price;
     const name = med.name;
 
@@ -106,4 +103,5 @@ router.post("/updateQuantity/:cartid/:medid", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
 module.exports = router;
