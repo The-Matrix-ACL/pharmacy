@@ -4,16 +4,17 @@ const router = express.Router();
 //models
 const Pharmacist = require("../Models/Pharmacist");
 const medicineModel = require("../Models/Medicine");
+
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 let path = require("path");
-let User = require("../models/User.js");
+
 const nodemailer = require("nodemailer");
 const OTP = require("../Models/OTP.js");
-var cors = require('cors')
+var cors = require("cors");
 
-var app = express()
-app.use(cors())
+var app = express();
+app.use(cors());
 
 // Registration endpoint for pharmacists
 router.post("/submitPharmacistRequest"),
@@ -26,7 +27,7 @@ router.post("/submitPharmacistRequest"),
       dateOfBirth,
       hourlyRate,
       affiliation,
-      educationalBackground
+      educationalBackground,
     } = req.body;
 
     try {
@@ -38,7 +39,7 @@ router.post("/submitPharmacistRequest"),
         dateOfBirth,
         hourlyRate,
         affiliation,
-        educationalBackground
+        educationalBackground,
       });
       res.status(201).json({
         message: "Pharmacist registration request submitted successfully",
@@ -147,6 +148,22 @@ router.post("/AvailableMedicinePharmacist/editMed/:id", async (req, res) => {
   }
 });
 
+router.post("/AvailableMedicinePharmacist/archiveMed/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const med = await medicineModel.findOne({ _id: id });
+    const arch = med.archived;
+    const result = await medicineModel.findByIdAndUpdate(
+      { _id: id },
+      { archived: !arch }
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
   console.log(name);
@@ -231,7 +248,7 @@ router.get("/viewMedicineById/:id", async (req, res) => {
 //Upload medicine image
 //Upload medicine image
 
-  const storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "images");
   },
@@ -248,7 +265,6 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-  
 
 let upload = multer({ storage, fileFilter });
 
@@ -284,8 +300,7 @@ router.put("/verify", async (req, res) => {
     Console.log(otpValidity);
     res.status(200).json({ valid: otpValidity });
   } catch (error) {
-    
-    console.log("aaa")
+    console.log("aaa");
     res.status(400).send(error.message);
   }
 });
@@ -293,14 +308,13 @@ router.put("/verify", async (req, res) => {
 //helper functions
 
 const verifyOTP = async ({ email, otp }) => {
-  
   try {
     if (!(email && otp)) {
       throw Error("Provide values for Email and OTP");
     }
-  
+
     const matchedOTPRecord = await OTP.findOne({ email: email });
-    
+
     if (!matchedOTPRecord) {
       throw Error("No OTP Record Found");
     }
@@ -310,13 +324,12 @@ const verifyOTP = async ({ email, otp }) => {
       await OTP.deleteOne({ email: email });
       throw Error("OTP has expired. Please request another one");
     }
-   
+
     const otpInRecord = matchedOTPRecord.otp;
     if (otpInRecord == otp) {
       return true;
     } else return false;
   } catch (error) {
-  
     throw error;
   }
 };
@@ -404,17 +417,18 @@ const sendEmail = async (mailOption) => {
   }
 };
 
+const Sales = require("../Models/Sales");
 
-const Sales = require('../Models/Sales');
-
-router.get ("/pharmacistViewSales" , async (req, res) => {
+router.get("/pharmacistViewSales", async (req, res) => {
   try {
     const pharmacistUsername = req.params.username; // Assuming the pharmacist's username is part of the URL parameter
     const { year, month } = req.query; // Extracting the year and month from query parameters
 
     // Validate year and month parameters
     if (!year || !month) {
-      return res.status(400).json({ error: 'Year and month are required parameters' });
+      return res
+        .status(400)
+        .json({ error: "Year and month are required parameters" });
     }
 
     const startOfMonth = new Date(parseInt(year), parseInt(month) - 1, 1);
@@ -430,22 +444,27 @@ router.get ("/pharmacistViewSales" , async (req, res) => {
     });
 
     // Calculate total sales for the month
-    const totalSales = monthlySales.reduce((sum, sale) => sum + sale.totalAmount, 0);
+    const totalSales = monthlySales.reduce(
+      (sum, sale) => sum + sale.totalAmount,
+      0
+    );
 
     res.json({ totalSales, monthlySales });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching sales data' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching sales data" });
   }
 });
 
-router. post("/addsalesinfo" , async (req, res) => {
+router.post("/addsalesinfo", async (req, res) => {
   try {
     const { medicine, quantitySold, totalAmount, saleDate } = req.body;
 
     // Validate required fields
     if (!medicine || !quantitySold || !totalAmount || !saleDate) {
-      return res.status(400).json({ error: 'All fields are required' });
+      return res.status(400).json({ error: "All fields are required" });
     }
 
     // Create a new sales entry
@@ -456,17 +475,20 @@ router. post("/addsalesinfo" , async (req, res) => {
       saleDate,
     });
 
-    res.status(201).json({ message: 'Sales information added successfully', sale: newSale });
+    res
+      .status(201)
+      .json({ message: "Sales information added successfully", sale: newSale });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while adding sales information' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while adding sales information" });
   }
 });
 
-
-router.post("/filtersales" ,  async (req, res) => {
+router.post("/filtersales", async (req, res) => {
   try {
-    const { medicine, startDate, endDate } = req.body;  // Use req.body instead of req.query
+    const { medicine, startDate, endDate } = req.body; // Use req.body instead of req.query
 
     // Build the query based on the provided parameters
     const query = {};
@@ -486,24 +508,23 @@ router.post("/filtersales" ,  async (req, res) => {
     res.json({ filteredSales });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while filtering sales report' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while filtering sales report" });
   }
 });
 
-
-
-
-router.post("/PharmacistGetWalletCredit" , async (req, res) => {
+router.post("/PharmacistGetWalletCredit", async (req, res) => {
   const username = req.body.username; // Retrieve username from request body
   try {
-      console.log("start");
-      console.log(username);
-      console.log("end");
-      const user = await Pharmacist.findOne({username }); // Use the retrieved username
-      console.log(user)
-      await res.status(200).json(user);
+    console.log("start");
+    console.log(username);
+    console.log("end");
+    const user = await Pharmacist.findOne({ username }); // Use the retrieved username
+    console.log(user);
+    await res.status(200).json(user);
   } catch (err) {
-      console.log(err);
+    console.log(err);
   }
 });
 

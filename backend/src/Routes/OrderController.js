@@ -21,20 +21,12 @@ router.post("/checkoutOrder/:userid", async (req, res) => {
     const order = await Order.create({
       userId,
       items: cart.medications,
-<<<<<<< HEAD
-     // bill: cart.bill,
-     //status: 'succsessful',
-    });
-    const data = await Cart.findOneAndDelete({ userid: userId });
-    //return res.status(201).send(order);
-=======
       bill: cart.bill,
-     status: 'Placed',
+      status: "Placed",
     });
 
     await Cart.findOneAndDelete({ userId: userId });
     return res.status(201).send(order);
->>>>>>> a5af7dedd4b8f31bdca67dcdd59eba158698e59e
   } else {
     res.status(500).send("You do not have items in cart");
   }
@@ -62,14 +54,16 @@ router.post("/viewOrder/:userid", async (req, res) => {
   const userId = req.params.userid;
   console.log("ugh");
 
-  const orders = await Order.find({ userId: userId }).select("name items status bill");
+  const orders = await Order.find({ userId: userId }).select(
+    "name items status bill"
+  );
   if (orders.length > 0) {
-    const orderData = orders.map(order => {
+    const orderData = orders.map((order) => {
       return {
         name: order.name,
         items: order.items,
         status: order.status,
-        bill: order.bill
+        bill: order.bill,
       };
     });
     return res.status(200).json(orderData);

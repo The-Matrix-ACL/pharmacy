@@ -5,7 +5,7 @@ const Patient = require("../Models/Patient.js");
 const AddressModel = require("../Models/DeliveryAddress.js");
 const nodemailer = require("nodemailer");
 const OTP = require("../Models/OTP.js");
-const medicineModel = require("../Models/Medicine"); 
+const medicineModel = require("../Models/Medicine");
 
 // Registration endpoint
 router.post("/addPatient", async (req, res) => {
@@ -233,13 +233,17 @@ router.get("/viewMedicine/:name", async (req, res) => {
   const { name } = req.params;
   console.log(name);
   try {
-    const med = await medicineModel.find({ name: name });
+    const med = await medicineModel.find({ archived: false });
     if (med.length === 0 || !med) {
       return res
         .status(404)
         .json({ message: "No medicine with this name on record" });
     }
-    res.status(200).json(med);
+    const results = await med.findOne({ name: name });
+    if (results.quantity === 0) {
+      results = await medicineModel.find({ ingredients: results.ingredients });
+    }
+    res.status(200).json(results);
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
@@ -249,13 +253,14 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
   const { usage } = req.params;
   console.log(usage);
   try {
-    const med = await medicineModel.find({ usage: usage });
+    const med = await medicineModel.find({ archived: false });
     if (med.length === 0 || !med) {
       return res
         .status(404)
-        .json({ message: "No medicine with this use on record" });
+        .json({ message: "No medicine with this name on record" });
     }
-    res.status(200).json(med);
+    const results = await med.find({ usage: usage });
+    res.status(200).json(results);
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
@@ -263,15 +268,16 @@ router.get("/viewMedicine/filter/:usage", async (req, res) => {
 });
 
 router.get("/AvailableMedicine", async (req, res) => {
-  const Medications = await medicineModel.find();
-
   try {
-    res.status(200).json(Medications);
+    const med = await medicineModel.find({ archived: false });
+    if (!med) {
+      return res.status(404).json({ error: "No available medicines found" });
+    }
+    return res.status(200).json(med);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 });
-
 router.post("/AddAddress/:userid", async (req, res) => {
   const Id = req.params.userid;
 
@@ -300,7 +306,7 @@ router.post("/AddAddress/:userid", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-//otp
+//otps
 
 router.put("/verify", async (req, res) => {
   try {
@@ -428,41 +434,45 @@ const sendEmail = async (mailOption) => {
   }
 };
 
-router.post ("/getWalletCredit",  async (req, res) => {
+router.post("/getWalletCredit", async (req, res) => {
   const username = req.body.username; // Retrieve username from request body
   try {
-      console.log("start");
-      console.log(username);
-      console.log("end");
-      const user = await Patient.findOne({username }); // Use the retrieved username
-      console.log(user)
-      await res.status(200).json(user);
+    console.log("start");
+    console.log(username);
+    console.log("end");
+    const user = await Patient.findOne({ username }); // Use the retrieved username
+    console.log(user);
+    await res.status(200).json(user);
   } catch (err) {
-      console.log(err);
+    console.log(err);
   }
 });
 
-router.post ("/payWithWallet" , async (req, res) => {
+router.post("/payWithWallet", async (req, res) => {
   try {
-    const { amount} = req.body; 
+    const { amount } = req.body;
     const username = req.body.username;
-    const user = await Patient.findOne({username});
+    const user = await Patient.findOne({ username });
 
-      if (!user) {
-          return res.status(404).json({ message: "User not found" });
-      }
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-      if (user.WalletCredit < amount) {
-          return res.status(400).json({ message: "Insufficient wallet credit" });
-      }
-      user.WalletCredit -= amount;
-      const updatedUser = await user.save();
-      res.status(200).json({success: true,newWalletCredit: updatedUser.WalletCredit});
+    if (user.WalletCredit < amount) {
+      return res.status(400).json({ message: "Insufficient wallet credit" });
+    }
+    user.WalletCredit -= amount;
+    const updatedUser = await user.save();
+    res
+      .status(200)
+      .json({ success: true, newWalletCredit: updatedUser.WalletCredit });
   } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "An error occurred while processing your request" });
+    console.error(err);
+    res
+      .status(500)
+      .json({ message: "An error occurred while processing your request" });
   }
-})
+});
 
 module.exports = router;
 //module.exports = {  filterPatients,changepassword,addDeliveryAddress,viewAddress,chooseMainAddress};

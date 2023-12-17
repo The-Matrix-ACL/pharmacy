@@ -28,8 +28,6 @@ const addAdmin = async (req, res) => {
   }
 };
 
-
-
 // Function to delete a pharmacist by ID
 const deletePharmacist = async (req, res) => {
   try {
@@ -215,7 +213,7 @@ const verifyOTP = async ({ email, otp }) => {
   }
 };
 
-const getMedicineByName =async (req, res) => {
+const getMedicineByName = async (req, res) => {
   const { name } = req.params;
   console.log(name);
   try {
@@ -276,8 +274,7 @@ const sendOTP = async ({ email, subject, message, duration = 1 }) => {
     return createdOTPRecord;
     console.error(error);
     res.status(400).json(error);
-  }
-  catch (error) {
+  } catch (error) {
     throw error;
   }
 };
@@ -295,7 +292,7 @@ const filterMedicineByUsage = async (req, res) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 const generateOTP = async () => {
   try {
