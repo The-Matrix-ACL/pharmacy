@@ -27,6 +27,12 @@ function PatientHome() {
       <div>
         <Link to="/viewAddress">View My Address</Link>
       </div>
+      <div>
+        <Link to="/payment">payment</Link>
+      </div>
+      <div>
+        <Link to="/zoom">Chat with Pharmacist</Link>
+      </div>
     </div>
   );
 }

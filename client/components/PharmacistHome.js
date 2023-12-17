@@ -21,6 +21,21 @@ const handleLogout = () => {
         <div>
         <Link to="/pharmacistchangepassword">ChangePassword</Link>
       </div>
+      <div>
+        <Link to="/chat">Chat</Link>
+      </div>
+      <div>
+        <Link to="/pharmacistViewSales">View sales</Link>
+      </div>
+      <div>
+        <Link to="/filtersales">filtersales</Link>
+      </div>
+      <div>
+        <Link to="/PharmacistGetWalletCredit">Wallet</Link>
+      </div>
+      <div>
+        <Link to="/Zoom">Wallet</Link>
+      </div>
       </div>
     
   );

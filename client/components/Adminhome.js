@@ -29,6 +29,9 @@ function Adminhome() {
         <Link to="/adminchangepassword">ChangePassword</Link>
       </div>
       <div>
+        <Link to="/pharmacistViewSales">View sales</Link>
+      </div>
+      <div>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>
