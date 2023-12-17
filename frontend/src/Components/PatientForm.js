@@ -73,6 +73,12 @@ function PatientForm() {
         <div className="Pharmacy" style={{width: 317, height: 59, left: 646, top: 178, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 60, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>pharmacy</div>
         <div className="Logobtn" style={{width: 719, height: 175, left: 243, top: 89, position: 'absolute'}} />
       </div>
+
+      <a href="/login" className="Signup" style={{width: 163, height: 59, left: 1451, top: 177, position: 'absolute'}}>
+        <div className="Rectangle4" style={{width: 160.55, height: 59, left: 2.45, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
+        <div className="SignUp" style={{width: 163, height: 59, left: 0, top: 0, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Login</div>
+      </a>
+    
    
     </div>
     <div className="Login" style={{width: 502.02, height: 1380, left: 451.98, top: 288, position: 'absolute'}}>

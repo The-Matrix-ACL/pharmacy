@@ -20,7 +20,7 @@ export default class ViewOrder extends Component {
 
   componentDidMount() {
     axios
-      .get("https://localhost:8000/pharma/order/viewOrder/" + userid)
+      .get("http://localhost:8000/viewOrder/" + userid)
       .then((response) => {
         this.setState({ order: response.data });
       })
@@ -47,6 +47,9 @@ export default class ViewOrder extends Component {
   }
 
   render() {
+    if (!this.state.order.length) {
+      return <p>Loading your orders...</p>;
+    }
     return (
       <>
         <div>
@@ -59,7 +62,15 @@ export default class ViewOrder extends Component {
                 <th>Price</th>
               </tr>
             </thead>
-            <tbody>{this.orderList()}</tbody>
+            <tbody>
+              {this.state.order.map((items) => (
+                <tr key={items._id}>
+                  <td>{items.name}</td>
+                  <td>{items.quantity}</td>
+                  <td>{items.price}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
         <div>

@@ -58,18 +58,21 @@ router.post("/checkoutOrder/payment/:userid", async (req, res) => {
 });
 */
 
-router.get("/viewOrder/:userid", async (req, res) => {
+router.post("/viewOrder/:userid", async (req, res) => {
   const userId = req.params.userid;
   console.log("ugh");
 
-  // const user = await Patient.findById(userId);
-<<<<<<< HEAD
-  const order = Order.findOne({ userId: userId });
-=======
-  const order = Order.find({ userId: userId });
->>>>>>> a5af7dedd4b8f31bdca67dcdd59eba158698e59e
-  if (order) {
-    return res.status(200).json(order);
+  const orders = await Order.find({ userId: userId }).select("name items status bill");
+  if (orders.length > 0) {
+    const orderData = orders.map(order => {
+      return {
+        name: order.name,
+        items: order.items,
+        status: order.status,
+        bill: order.bill
+      };
+    });
+    return res.status(200).json(orderData);
   } else {
     return res.status(404).send("No orders placed");
   }
