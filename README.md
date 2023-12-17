@@ -461,39 +461,39 @@ export default Wallet;
 
 <details>
 <summary>Website Home Page</summary>
-  <img src="../screenshots/ss0.jpg" width="800">
+  <img src="./screenshots/ss0.jpg" width="800">
 </details>
 <details>
   <summary>Patient Dashboard</summary>
-  <img src="../screenshots/ss1.png" width="800">
+  <img src="./screenshots/ss1.png" width="800">
 </details>
 <details>
 <summary>Change Password</summary>
-  <img src="../screenshots/ss2.png" width="800">
+  <img src="./screenshots/ss2.png" width="800">
 </details>
 <details>
 <summary>Shop For Medicine</summary>
-  <img src="../screenshots/ss3.png" width="800">
+  <img src="./screenshots/ss3.png" width="800">
 </details>
 <details>
   <summary>View Wallet</summary>
-  <img src="../screenshots/ss4.png" width="800">
+  <img src="./screenshots/ss4.png" width="800">
 </details>
 <details>
 <summary>Adding A New Admin</summary>
-  <img src="../screenshots/ss5.png" width="800">
+  <img src="./screenshots/ss5.png" width="800">
 </details>
 <details>
   <summary>Admin Dashboard</summary>
-  <img src="../screenshots/ss6.png" width="800">
+  <img src="./screenshots/ss6.png" width="800">
 </details>
 <details>
   <summary>Pharmacist Dashboard</summary>
-  <img src="../screenshots/ss7.png" width="800">
+  <img src="./screenshots/ss7.png" width="800">
 </details>
 <details>
   <summary>Adding New Medicine</summary>
-  <img src="../screenshots/ss8.png" width="800">
+  <img src="./screenshots/ss8.png" width="800">
 </details>
 
 ## Tech/Framework used
