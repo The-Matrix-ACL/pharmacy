@@ -514,7 +514,7 @@ router.post("/filtersales", async (req, res) => {
   }
 });
 
-router.post("/GetWalletCredit", async (req, res) => {
+router.post("/PharmacistGetWalletCredit", async (req, res) => {
   const username = req.body.username; // Retrieve username from request body
   try {
     console.log("start");

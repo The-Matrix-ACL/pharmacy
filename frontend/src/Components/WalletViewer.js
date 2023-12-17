@@ -17,7 +17,7 @@ function WalletViewer() {
   const fetchWalletCredit = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`http://localhost:5000/getWalletCredit`, {
+      const response = await axios.post(`http://localhost:8000/getWalletCredit`, {
         username,
       });
 

@@ -31,7 +31,7 @@ function Home() {
         </div>
       </div>
       <a href="/login" className="pharma-btn">
-  <div className="overlap-3">
+  <div className="overlap-3" >
     <div className="rectangle-2" />
     <div className="PHARMACY">
       EL7A2NI

@@ -113,6 +113,10 @@ export default class AddMed extends Component {
           <div className="PharmacyPharmacist" style={{width: 676, height: 59, left: 658, top: 193, position: 'absolute', color: 'white', fontSize: 60, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Pharmacy - Pharmacist</div>
           <div className="Logobtn" style={{width: 719, height: 175, left: 243, top: 89, position: 'absolute'}} />
         </div>
+        <a href="/pharmacist" className="Signup" style={{width: 163, height: 59, left: 1451, top: 177, position: 'absolute'}}>
+        <div className="Rectangle4" style={{width: 160.55, height: 59, left: 2.45, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
+        <div className="SignUp" style={{width: 163, height: 59, left: 0, top: 0, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Home</div>
+      </a>
       </div>
       <div className="Addmed" style={{width: 507, height: 1323, left: 455, top: 229, position: 'absolute'}}>
         <div className="Formbounds" style={{width: 507, height: 1323, left: 0, top: 0, position: 'absolute'}}>

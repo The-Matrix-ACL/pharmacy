@@ -30,50 +30,45 @@ import ResetPasswordPatient from "./pages/resetPasswordPatient";
 import ResetPasswordAdmin from "./pages/resetPasswordAdmin";
 import ResetPasswordPharmacist from "./pages/resetPasswordPharmacist";
 import Order from "./Components/order-view.components";
-<<<<<<< HEAD
-=======
 import Home from "./Components/Home";
 import MedicationsPharmacist from "./Components/MedsPharmacist";
 import PatientChat from "./Components/PatientChat";
 import PharmacistViewSales from "./Components/PharmacistViewSales";
-import PharmacistFiltersales from './Components/PharmacistFiltersales';
-import PaymentForm from './Components/PaymentForm';
-import Wallet from './Components/Wallet';
-import WalletViewer from './Components/WalletViewer';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import WalletViewerPharmacist from './Components/WalletViewerPharmacist';
+import PharmacistFiltersales from "./Components/PharmacistFiltersales";
+import PaymentForm from "./Components/PaymentForm";
+import Wallet from "./Components/Wallet";
+import WalletViewer from "./Components/WalletViewer";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import WalletViewerPharmacist from "./Components/WalletViewerPharmacist";
+import PharmacistChat from "./Components/PharmacistChat";
 
-const stripePromise = loadStripe("pk_test_51K8pKeAHoHtEwtN5PmpH89COOO1E8kd0TT27PiU2NovDU5RPHP20Q2EXUjzstNx6yhBMwir9egTX1tCwO3D3ebvD00QujcIxos");
-
->>>>>>> a5af7dedd4b8f31bdca67dcdd59eba158698e59e
+const stripePromise = loadStripe(
+  "pk_test_51K8pKeAHoHtEwtN5PmpH89COOO1E8kd0TT27PiU2NovDU5RPHP20Q2EXUjzstNx6yhBMwir9egTX1tCwO3D3ebvD00QujcIxos"
+);
 
 function App() {
   return (
     <Router>
       <div className="container">
-<<<<<<< HEAD
-      <Navbar />
-=======
-     
->>>>>>> a5af7dedd4b8f31bdca67dcdd59eba158698e59e
+        <Navbar />
+
         <br />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-
           <Route path="/addMed" element={<AddMed />} />
           <Route path="/AvailableMedicine" element={<Medications />} />
-          <Route path="/AvailableMedicinePharmacist" element={<MedicationsPharmacist />} />
+          <Route
+            path="/AvailableMedicinePharmacist"
+            element={<MedicationsPharmacist />}
+          />
           <Route path="getCart/:id" element={<Cart />} />
           <Route
             path="/AvailableMedicinePharmacist/editMed/:id"
             element={<EditMed />}
           />
-          <Route
-            path="/AvailableMedicine/editMed"
-            element={<EditMed />}
-          />
+          <Route path="/AvailableMedicine/editMed" element={<EditMed />} />
           <Route path="/patient" element={<PatientHome />} />{" "}
           {/* Set the AdminHome as the default page for Admin */}
           <Route path="/pharmacist" element={<PharmacistHome />} />{" "}
@@ -96,42 +91,34 @@ function App() {
           />
           <Route path="/addAddress" element={<PatientAddAddress />} />
           <Route path="/viewAddress" element={<PatientViewAddress />} />
-       
-        <Route
-          path="/resetPassword"
-          element={<ResetPasswordPatient />}
-        />
-        <Route
-          path="/resetPassword"
-          element={<ResetPasswordAdmin />}
-        />{" "}
-        <Route
-          path="/resetPassword"
-          element={<ResetPasswordPharmacist />}
-        />
-         
-
-         <Route
-          path="/viewOrder/:userid"
-          element={<Order/>}
-        />
-<<<<<<< HEAD
-         <Route
-          path="/cancelOrder/:userid"
-          element={< Order/>}
-        />
-=======
-        
-        <Route key="chat" path="/chat" element={<PatientChat />} />
-          <Route path="/pharmacistViewSales" element={<PharmacistViewSales />} />
+          <Route path="/resetPassword" element={<ResetPasswordPatient />} />
+          <Route path="/resetPassword" element={<ResetPasswordAdmin />} />{" "}
+          <Route path="/resetPassword" element={<ResetPasswordPharmacist />} />
+          <Route path="/viewOrder/:userid" element={<Order />} />
+          <Route path="/cancelOrder/:userid" element={<Order />} />
+          <Route key="chat" path="/chat" element={<PatientChat />} />
+          <Route
+            path="/pharmacistViewSales"
+            element={<PharmacistViewSales />}
+          />
           <Route path="/filtersales" element={<PharmacistFiltersales />} />
-          <Route path="/payment" element={<Elements stripe={stripePromise}><PaymentForm /></Elements>} />
+          <Route
+            path="/payment"
+            element={
+              <Elements stripe={stripePromise}>
+                <PaymentForm />
+              </Elements>
+            }
+          />
           <Route path="/getWalletCredit" element={<Wallet />} />
           <Route path="/getWalletCredit" element={<WalletViewer />} />
-          <Route path="/PharmacistGetWalletCredit" element={<WalletViewerPharmacist />} />
->>>>>>> a5af7dedd4b8f31bdca67dcdd59eba158698e59e
+          <Route
+            path="/PharmacistGetWalletCredit"
+            element={<WalletViewerPharmacist />}
+          />
+          <Route path="/zoomPatient" element={<PatientChat />} />
+          <Route path="/ZoomPharmacist" element={<PharmacistChat />} />
         </Routes>
-
       </div>
     </Router>
   );
