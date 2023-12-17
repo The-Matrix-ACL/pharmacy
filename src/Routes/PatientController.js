@@ -219,4 +219,79 @@ const chooseMainAddress = async (req, res) => {
 
 
 
-module.exports = { createPatient, filterPatients,changepassword,addDeliveryAddress,viewAddress,chooseMainAddress};
+const getWalletCredit = async (req, res) => {
+  const username = req.body.username; // Retrieve username from request body
+  try {
+      console.log("start");
+      console.log(username);
+      console.log("end");
+      const user = await Patient.findOne({username }); // Use the retrieved username
+      console.log(user)
+      await res.status(200).json(user);
+  } catch (err) {
+      console.log(err);
+  }
+};
+const payWithWallet = async (req, res) => {
+  try {
+    const { amount} = req.body; 
+    const username = req.body.username;
+    const user = await Patient.findOne({username});
+
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+
+      if (user.WalletCredit < amount) {
+          return res.status(400).json({ message: "Insufficient wallet credit" });
+      }
+      user.WalletCredit -= amount;
+      const updatedUser = await user.save();
+      res.status(200).json({success: true,newWalletCredit: updatedUser.WalletCredit});
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "An error occurred while processing your request" });
+  }
+}
+
+const PharmacistRequest = require('../Models/Pharmacist'); // Import the Pharmacist model
+const notificationModel=require('../Models/Notification');
+
+const createnotification = async (req,res) =>
+{
+  const {userid,id,subject,content} = req.body;
+  const user = await Patient.findOne({_id:userid});
+  const doctor = await PharmacistRequest.findOne({_id:id});
+  const username = user.Username;
+  console.log(username);
+  const doctorname = doctor.Username;
+  console.log(doctorname);
+  var status = "Active";
+  if(subject==="Appointment Cancelled"){
+    await notificationModel.deleteMany({userid:userid,doctorid:id,isuser:true});
+    await notificationModel.deleteMany({userid:userid,doctorid:id,isdoctor:true});
+    await userModel.findOneAndUpdate({_id:userid},{WalletCredit:user.WalletCredit+doctor.SessionPrice})
+    const deleted = await notificationModel.findOne({userid:userid,doctorid:id,isdoctor:true});
+    console.log(deleted+'e');
+    status = "Cancelled"
+  }
+  else if(subject === "Followup Request"){
+    status = "Pending"
+  }
+  const notification = await notificationModel.create({userid:userid , doctorid:id , sender:doctorname,subject:subject,content:content +doctorname,isuser:true,Status:status});
+  const notification2 = await notificationModel.create({userid:userid , doctorid:id , sender:username,subject:subject,content:content +username,isdoctor:true,Status:status});
+  console.log(notification);
+  console.log(notification2);
+  const mailOptions = {
+    from: "el7a2niYaMeleegy@hotmail.com",
+    to: "mazendarwish69@gmail.com",
+    subject:subject,
+    html: `<p>${content}</p><p style="color:tomato; font-size:25px; letter-spacing:2px;">${username +" & "+doctorname}</p>`,
+  };
+  await sendEmail(mailOptions);
+  res.status(200).json([notification,notification2]);
+}
+
+
+
+module.exports = { createPatient, filterPatients,changepassword,addDeliveryAddress,viewAddress,chooseMainAddress,payWithWallet,getWalletCredit,createnotification};
