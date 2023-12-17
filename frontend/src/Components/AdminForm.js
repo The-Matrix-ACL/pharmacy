@@ -46,6 +46,12 @@ function AdminForm() {
     <img className="Acllogo1" style={{width: 271, height: 131, left: 0, top: 0, position: 'absolute'}} src={acllogo} />
     <div className="El7a2niClinicsAndPharmacy2023" style={{left: 563, top: 47, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 25, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>© el7a2ni clinics and pharmacy 2023</div>
   </div>
+
+  <a href="/admin" className="Signup" style={{width: 163, height: 59, left: 1151, top: 97, position: 'absolute'}}>
+        <div className="Rectangle4" style={{width: 160.55, height: 59, left: 2.45, top: 0, position: 'absolute', background: 'white', borderRadius: 18, zIndex: 1}} />
+        <div className="SignUp" style={{width: 163, height: 59, left: 0, top: 0, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word', zIndex: 1}}>Home</div>
+      </a>
+
   <div className="Login" style={{width: 500.02, height: 468, left: 451.98, top: 271, position: 'absolute'}}>
     <div className="Login" style={{width: 463, height: 59, left: 13.02, top: 409, position: 'absolute'}}>
       <button className="SignUp" style={{

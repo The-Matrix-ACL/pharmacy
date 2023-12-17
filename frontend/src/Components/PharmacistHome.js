@@ -33,26 +33,31 @@ const handleLogout = () => {
       <div className="SignUp" style={{width: 359, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Change Password</div>
     </a>
 
+    <div className="Signup" style={{width: 163, height: 59, left: 1458, top: 194, position: 'absolute'}}>
+      <div className="Rectangle4" style={{width: 160.55, height: 59, left: 2.45, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
+      <button className="SignUp" style={{width: 160.55, height: 59, left: 2.45, top: 0, borderRadius: 18, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}onClick={handleLogout}>Log Out</button>
+    </div>
+
   </div>
   <div className="Navigation" style={{width: 1014, height: 370, left: 212, top: 414, position: 'absolute'}}>
     <div className="Rectangle7" style={{width: 1014, height: 308, left: 0, top: 62, position: 'absolute', background: '#4685FF', borderRadius: 73}} />
     <div className="PharmacistNavigationDashboard" style={{width: 896, height: 47, left: 63, top: 0, position: 'absolute', textAlign: 'center', color: 'black', fontSize: 48, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Pharmacist Navigation Dashboard</div>
-    <div className="Btn" style={{width: 441, height: 59, left: 56, top: 265, position: 'absolute'}}>
+    <a href= "/pharmacistViewSales" className="Btn" style={{width: 441, height: 59, left: 56, top: 265, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>View Sales Reports</div>
-    </div>
+    </a>
     <a href= "/AvailableMedicinePharmacist" className="Btn" style={{width: 441, height: 59, left: 518, top: 265, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>View All Medicines</div>
     </a>
-    <div className="Btn" style={{width: 441, height: 59, left: 287, top: 184, position: 'absolute'}}>
+    <a href= "/PharmacistGetWalletCredit" className="Btn" style={{width: 441, height: 59, left: 287, top: 184, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>View Wallet</div>
-    </div>
-    <div className="Btn" style={{width: 441, height: 59, left: 518, top: 103, position: 'absolute'}}>
+    </a>
+    <a href="/zoomPharmacist" className="Btn" style={{width: 441, height: 59, left: 518, top: 103, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Chat With A Doctor</div>
-    </div>
+    </a>
     <a href = "/addMed" className="Btn" style={{width: 441, height: 59, left: 56, top: 103, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Add New Medicine</div>

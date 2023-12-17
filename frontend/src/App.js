@@ -29,7 +29,7 @@ import Medications from "./Components/Medications";
 import ResetPasswordPatient from "./pages/resetPasswordPatient";
 import ResetPasswordAdmin from "./pages/resetPasswordAdmin";
 import ResetPasswordPharmacist from "./pages/resetPasswordPharmacist";
-import Order from "./Components/order-view.components";
+import Order from "./Components/ViewOrder";
 import Home from "./Components/Home";
 import MedicationsPharmacist from "./Components/MedsPharmacist";
 import PatientChat from "./Components/PatientChat";
@@ -41,6 +41,7 @@ import WalletViewer from './Components/WalletViewer';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import WalletViewerPharmacist from './Components/WalletViewerPharmacist';
+import PharmacistChat from  "./Components/PharmacistChat";
 
 const stripePromise = loadStripe("pk_test_51K8pKeAHoHtEwtN5PmpH89COOO1E8kd0TT27PiU2NovDU5RPHP20Q2EXUjzstNx6yhBMwir9egTX1tCwO3D3ebvD00QujcIxos");
 
@@ -116,6 +117,10 @@ function App() {
           <Route path="/getWalletCredit" element={<Wallet />} />
           <Route path="/getWalletCredit" element={<WalletViewer />} />
           <Route path="/PharmacistGetWalletCredit" element={<WalletViewerPharmacist />} />
+
+          <Route path="/zoomPatient" element={<PatientChat />} />
+          <Route path="/ZoomPharmacist" element={<PharmacistChat />} />
+
         </Routes>
 
       </div>

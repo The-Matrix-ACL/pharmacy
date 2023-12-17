@@ -1,13 +1,7 @@
 import { Component } from "react";
 import axios from "axios";
 
-const Order = (props) => (
-  <tr>
-    <td>{props.order.items[1]}</td>
-    <td>{props.order.items[2]}</td>
-    <td>{props.order.items[3]}</td>
-  </tr>
-);
+
 const userid = localStorage.getItem('userId')
 console.log(localStorage)
 
@@ -19,9 +13,8 @@ export default class ViewOrder extends Component {
   }
 
   componentDidMount() {
-    
     axios
-      .get("https://localhost:8000/viewOrder/" + userid )
+      .get("http://localhost:8000/viewOrder/" + userid )
       .then((response) => {
         this.setState({ order: response.data });
       })
@@ -45,9 +38,13 @@ export default class ViewOrder extends Component {
       .catch((error) => {
         console.log(error);
       });
+      
   }
 
   render() {
+    if (!this.state.order.length) {
+      return <p>Loading your orders...</p>;
+    }
     return (
       <>
         <div>
@@ -60,7 +57,15 @@ export default class ViewOrder extends Component {
                 <th>Price</th>
               </tr>
             </thead>
-            <tbody>{this.orderList()}</tbody>
+            <tbody>
+  {this.state.order.map((items) => (
+    <tr key={items._id}>
+      <td>{items.name}</td>
+      <td>{items.quantity}</td>
+      <td>{items.price}</td>
+    </tr>
+  ))}
+</tbody>
           </table>
         </div>
         <div>

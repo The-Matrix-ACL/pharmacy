@@ -52,18 +52,18 @@ const userId= localStorage.userId;
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Shop For Medicine</div>
     </a>
-    <div className="Btn" style={{width: 441, height: 59, left: 518, top: 184, position: 'absolute'}}>
+    <a href= "/getWalletCredit" className="Btn" style={{width: 441, height: 59, left: 518, top: 184, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>View Wallet</div>
-    </div>
+    </a>
     <a href="/getCart/:id"  className="Btn" style={{width: 441, height: 59, left: 56, top: 184, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>View Cart</div>
     </a>
-    <div className="Btn" style={{width: 441, height: 59, left: 518, top: 103, position: 'absolute'}}>
+    <a href="/zoomPatient" className="Btn" style={{width: 441, height: 59, left: 518, top: 103, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Chat With A Pharmacist</div>
-    </div>
+    </a>
     <a href="/viewAddress" className="Btn" style={{width: 441, height: 59, left: 56, top: 103, position: 'absolute'}}>
       <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
       <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Delivery Addresses</div>

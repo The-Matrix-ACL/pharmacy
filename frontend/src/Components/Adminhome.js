@@ -40,10 +40,10 @@ function Adminhome() {
     <div className="Navigation" style={{width: 1014, height: 370, left: 212, top: 414, position: 'absolute'}}>
       <div className="Rectangle7" style={{width: 1014, height: 308, left: 0, top: 62, position: 'absolute', background: '#4685FF', borderRadius: 73}} />
       <div className="AdminNavigationDashboard" style={{width: 669, height: 47, left: 173, top: 0, position: 'absolute', color: 'black', fontSize: 48, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>Admin Navigation Dashboard</div>
-      <div className="Btn" style={{width: 441, height: 59, left: 56, top: 265, position: 'absolute'}}>
+      <a href="/pharmacistViewSales" className="Btn" style={{width: 441, height: 59, left: 56, top: 265, position: 'absolute'}}>
         <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
         <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>View Sales Reports</div>
-      </div>
+      </a>
       <a href="/AvailableMedicine" className="Btn" style={{width: 441, height: 59, left: 518, top: 265, position: 'absolute'}}>
         <div className="Rectangle4" style={{width: 434.37, height: 59, left: 6.63, top: 0, position: 'absolute', background: 'white', borderRadius: 18}} />
         <div className="SignUp" style={{width: 441, left: 0, top: 12, position: 'absolute', textAlign: 'center', color: '#4685FF', fontSize: 32, fontFamily: 'Josefin Sans', fontWeight: '400', wordWrap: 'break-word'}}>View All Medicines</div>
